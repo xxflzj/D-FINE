@@ -67,14 +67,26 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 ### Base models
 | Model | Dataset | AP<sup>val</sup> | #Params | FPS | GFLOPs | config | checkpoint |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | COCO | **48.5** |  10M | 287 | 25 | [cfg](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_coco.pth)
-**D-FINE-M** | COCO | **52.3** |  19M | 180 | 57 | [cfg](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_coco.pth)
-**D-FINE-L** | COCO | **54.0** |  31M | 129 | 91 | [cfg](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_coco.pth)
-**D-FINE-X** | COCO | **55.8** |  62M | 81 | 202 | [cfg](./configs/dfine/dfine_hgnetv2_x_coco.yml) | [55.8](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_coco.pth)
-**D-FINE-S** | COCO+Objects365 | **50.3** |  10M | 287 | 25 | [cfg](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | []()
-**D-FINE-M** | COCO+Objects365 | **55.0** |  19M | 180 | 57 | [cfg](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | []()
-**D-FINE-L** | COCO+Objects365 | **56.9** |  31M | 129 | 91 | [cfg](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | []()
-**D-FINE-X** | COCO+Objects365 | **59.0** |  62M | 81 | 202 | [cfg](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | []()
+**D-FINE-S** | COCO | **48.5** |  10M | 287 | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_coco.pth)
+**D-FINE-M** | COCO | **52.3** |  19M | 180 | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_coco.pth)
+**D-FINE-L** | COCO | **54.0** |  31M | 129 | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_coco.pth)
+**D-FINE-X** | COCO | **55.8** |  62M | 81 | 202 | [yml](./configs/dfine/dfine_hgnetv2_x_coco.yml) | [55.8](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_coco.pth)
+**D-FINE-S** | COCO+Objects365 | **50.3** |  10M | 287 | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | []()
+**D-FINE-M** | COCO+Objects365 | **55.0** |  19M | 180 | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | []()
+**D-FINE-L** | COCO+Objects365 | **56.9** |  31M | 129 | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | []()
+**D-FINE-X** | COCO+Objects365 | **59.0** |  62M | 81 | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | []()
+
+<details>
+<summary> Pretrained Models </summary>
+
+| Model | Dataset | AP | #Params | FPS | GFLOPs | config | checkpoint |
+| :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: |
+**D-FINE-S** | Objects365 | **30.1** |  10M | 287 | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | []()
+**D-FINE-M** | Objects365 | **55.0** |  19M | 180 | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | []()
+**D-FINE-L** | Objects365 | **56.9** |  31M | 129 | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | []()
+**D-FINE-X** | Objects365 | **59.0** |  62M | 81 | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | []()
+
+</details>
 
 **Notes:**
 - `AP` is evaluated on *MSCOCO val2017* dataset.

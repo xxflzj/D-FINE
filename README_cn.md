@@ -60,41 +60,40 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 
 ## 模型库
 
-### 基础模型
-| 模型 | 数据集 | AP<sup>val</sup> | 参数量 | FPS | GFLOPs | 配置 | 权重 |
+### COCO
+| 模型 | 数据集 | AP<sup>val</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 | 
+| :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
+**D-FINE-S** | COCO | **48.5** |  10M | 3.49 | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_coco.pth) | []()
+**D-FINE-M** | COCO | **52.3** |  19M | 5.62 | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_coco.pth) | []()
+**D-FINE-L** | COCO | **54.0** |  31M | 8.07 | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_coco.pth) | []()
+**D-FINE-X** | COCO | **55.8** |  62M | 12.89 | 202 | [yml](./configs/dfine/dfine_hgnetv2_x_coco.yml) | [55.8](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_coco.pth) | []()
+
+### Objects365+COCO
+| 模型 | 数据集 | AP<sup>val</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | COCO | **48.5** |  10M | 287 | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_coco.pth)
-**D-FINE-M** | COCO | **52.3** |  19M | 180 | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_coco.pth)
-**D-FINE-L** | COCO | **54.0** |  31M | 129 | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_coco.pth)
-**D-FINE-X** | COCO | **55.8** |  62M | 81 | 202 | [yml](./configs/dfine/dfine_hgnetv2_x_coco.yml) | [55.8](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_coco.pth)
-**D-FINE-S** | COCO+Objects365 | **50.3** |  10M | 287 | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | []()
-**D-FINE-M** | COCO+Objects365 | **55.0** |  19M | 180 | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | []()
-**D-FINE-L** | COCO+Objects365 | **56.9** |  31M | 129 | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | []()
-**D-FINE-X** | COCO+Objects365 | **59.0** |  62M | 81 | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | []()
+**D-FINE-S** | Objects365+COCO | **50.3** |  10M | 3.49 | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | []() | []()
+**D-FINE-M** | Objects365+COCO | **55.0** |  19M | 5.62 | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | []() | []()
+**D-FINE-L** | Objects365+COCO | **56.9** |  31M | 8.07 | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | []() | []()
+**D-FINE-X** | Objects365+COCO | **59.0** |  62M | 12.89 | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | []() | []()
 
 <details>
 <summary> Pretrained Models </summary>
 
-| 模型 | 数据集 | AP | 参数量 | FPS | GFLOPs | 配置 | 权重 |
-| :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | Objects365 | **30.1** |  10M | 287 | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | []()
-**D-FINE-M** | Objects365 | **55.0** |  19M | 180 | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | []()
-**D-FINE-L** | Objects365 | **56.9** |  31M | 129 | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | []()
-**D-FINE-X** | Objects365 | **59.0** |  62M | 81 | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | []()
+| 模型 | 数据集 | AP<sup>5000</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |
+| :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
+**D-FINE-S** | Objects365 | **30.1** | 10M | 3.49 | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | []() | []()
+**D-FINE-M** | Objects365 | **55.0** | 19M | 5.62 | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | []() | []()
+**D-FINE-L** | Objects365 | **56.9** | 31M | 8.07 | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | []() | []()
+**D-FINE-X** | Objects365 | **59.0** | 62M | 12.89 | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | []() | []()
 
 </details>
 
 **注意：**
-- `AP` 是在 *MSCOCO val2017* 数据集上评估的。
-- `FPS` 是在单张 T4 GPU 上以 $batch\\_size = 1$, $fp16$, 和 $TensorRT==10.4.0$ 评估的。
-- 表中的 `COCO+Objects365` 表示使用在 `Objects365` 上预训练的权重在 `COCO` 上微调的模型。
-<!-- - `Stage 1`: AP<sup>val</sup> before tuning off advanced augmentations in the final few epochs (Objects365 AP<sup>val</sup> if dataset is `COCO+365`). \
-These ckpts offering better generalization.
-- `Stage 2`: Best AP<sup>val</sup> after disabling advanced augmentations in the final few epochs. (COCO AP<sup>val</sup> if dataset is `COCO+365`) -->
+- **AP<sup>val</sup>** 是在 *MSCOCO val2017* 数据集上评估的, **AP<sup>5000</sup>** 是在 *Objects365* 验证集的前5000个样本上评估的。
+- **时延** 是在单张 T4 GPU 上以 $batch\\_size = 1$, $fp16$, 和 $TensorRT==10.4.0$ 评估的。
+- 表中的 **Objects365+COCO** 表示使用在 *Objects365* 上预训练的权重在 *COCO* 上微调的模型。
 
-<!-- - `Stage 1`: AP<sup>val</sup> before tuning off advanced augmentations in the final few epochs (Objects365 AP<sup>val</sup> if dataset is `COCO+365`). \
-These ckpts offering better generalization.
-- `Stage 2`: Best AP<sup>val</sup> after disabling advanced augmentations in the final few epochs. (COCO AP<sup>val</sup> if dataset is `COCO+365`) -->
+
 
 ## 快速开始
 
@@ -503,6 +502,20 @@ pip install fiftyone
 4. Voxel51 Fiftyone 可视化 ([fiftyone](https://github.com/voxel51/fiftyone))
 ```shell
 python tools/visualization/fiftyone_vis.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml -r model.pth
+```
+</details>
+
+<details>
+<summary> 其他 </summary>
+
+1. 自动恢复（Auto Resume）训练
+```shell
+bash reference/safe_training.sh
+```
+
+2. 模型权重转换
+```shell
+python reference/convert_weight.py model.pth
 ```
 </details>
 

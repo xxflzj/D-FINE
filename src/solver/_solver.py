@@ -163,7 +163,8 @@ class BaseSolver(object):
             state = torch.hub.load_state_dict_from_url(path, map_location='cpu')
         else:
             state = torch.load(path, map_location='cpu')
-
+        
+        # state['model'] = remove_module_prefix(state['model'])
         self.load_state_dict(state)
 
     def load_tuning_state(self, path: str):

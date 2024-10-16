@@ -365,7 +365,7 @@ class TransformerDecoder(nn.Module):
                 output = F.interpolate(output, size=query_pos_embed.shape[-1])  
                 output_detach = output.detach()
                             
-            output = layer(output, ref_points_input, value, spatial_shapes, attn_mask, query_pos_embed)       
+            output = layer(output, ref_points_input, value, spatial_shapes, attn_mask, query_pos_embed)
             
             if i == 0 :
                 # Initial bounding box predictions with inverse sigmoid refinement

@@ -20,8 +20,8 @@ HGNetv2:
   use_lab: True
 
 DFINETransformer:
-  num_layers: 3
-  eval_idx: -1
+  num_layers: 3  # 4 5 6
+  eval_idx: -1  # -2 -3 -4
 
 HybridEncoder:
   in_channels: [256, 512, 1024]
@@ -34,10 +34,10 @@ optimizer:
   params: 
     - 
       params: '^(?=.*backbone)(?!.*norm|bn).*$'
-      lr: 0.000125
+      lr: 0.0001
     - 
       params: '^(?=.*backbone)(?=.*norm|bn).*$'
-      lr: 0.000125
+      lr: 0.0001
       weight_decay: 0.
     - 
       params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$'

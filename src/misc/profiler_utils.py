@@ -15,7 +15,8 @@ def stats(
     flops, macs, _ = calculate_flops(model=model_for_info, 
                                         input_shape=input_shape,
                                         output_as_string=True,
-                                        output_precision=4)
+                                        output_precision=4,
+                                        print_detailed=False)
     params = sum(p.numel() for p in model_for_info.parameters())
     del model_for_info
 

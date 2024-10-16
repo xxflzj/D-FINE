@@ -20,8 +20,8 @@ HGNetv2:
   use_lab: True
 
 DFINETransformer:
-  num_layers: 4
-  eval_idx: -1
+  num_layers: 4  # 5 6
+  eval_idx: -1  # -2 -3
 
 HybridEncoder:
   in_channels: [384, 768, 1536]

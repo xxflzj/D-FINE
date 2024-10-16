@@ -20,8 +20,8 @@ HGNetv2:
   use_lab: True
 
 DFINETransformer:
-  num_layers: 3
-  eval_idx: -1
+  num_layers: 3  # 4 5 6
+  eval_idx: -1  # -2 -3 -4
 
 HybridEncoder:
   in_channels: [256, 512, 1024]
@@ -48,16 +48,16 @@ optimizer:
   weight_decay: 0.000125
 
 
-epoches: 36 # Early stop
+epoches: 72 # Early stop
 train_dataloader: 
   dataset: 
     transforms:
       policy:
-        epoch: 24
+        epoch: 56
   collate_fn:
-    stop_epoch: 24
+    stop_epoch: 56
     ema_restart_decay: 0.9999
-    scale_ori_repeat: 20
+    scale_ori_repeat: 10
 
 ema:
   warmups: 0

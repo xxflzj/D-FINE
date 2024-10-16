@@ -211,7 +211,7 @@ def main(args):
                 "coco-2017",
                 split="validation",
                 dataset_name="evaluate-detections-tutorial",
-                dataset_dir="/home/pengys/Data/fiftyone"
+                dataset_dir="data/fiftyone"
             )
             
             dataset.persistent = True
@@ -300,7 +300,7 @@ def main(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', '-c', type=str, default= "configs/dfine/dfine_hgnetv2_l_coco.yml")
+    parser.add_argument('--config', '-c', type=str)
     parser.add_argument('--resume', '-r', type=str)
     args = parser.parse_args()
 

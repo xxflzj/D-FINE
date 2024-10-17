@@ -1,4 +1,4 @@
-[English](src/zoo/dfine/blog.md) | 简体中文
+[English](blog.md) | 简体中文
 
 ## 🔥革新实时目标检测：D-FINE 与 YOLO 和 其他 DETR 模型的对比
 

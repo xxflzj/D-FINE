@@ -1,4 +1,4 @@
-English | [简体中文](src/zoo/dfine/blog_cn.md)
+English | [简体中文](blog_cn.md)
 
 ## 🔥Revolutionizing Real-Time Object Detection: D-FINE vs. YOLO and Other DETR Models
 

@@ -63,28 +63,28 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 ### COCO
 | 模型 | 数据集 | AP<sup>val</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 | 
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | COCO | **48.5** |  10M | 3.49 | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_coco.pth) | []()
-**D-FINE-M** | COCO | **52.3** |  19M | 5.62 | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_coco.pth) | []()
-**D-FINE-L** | COCO | **54.0** |  31M | 8.07 | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_coco.pth) | []()
-**D-FINE-X** | COCO | **55.8** |  62M | 12.89 | 202 | [yml](./configs/dfine/dfine_hgnetv2_x_coco.yml) | [55.8](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_coco.pth) | []()
+**D-FINE-S** | COCO | **48.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_s_coco_log.txt)
+**D-FINE-M** | COCO | **52.3** | 19M | 5.62ms | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_m_coco_log.txt)
+**D-FINE-L** | COCO | **54.0** | 31M | 8.07ms | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_l_coco_log.txt)
+**D-FINE-X** | COCO | **55.8** | 62M | 12.89ms | 202 | [yml](./configs/dfine/dfine_hgnetv2_x_coco.yml) | [55.8](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_x_coco_log.txt)
 
 ### Objects365+COCO
 | 模型 | 数据集 | AP<sup>val</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | Objects365+COCO | **50.3** |  10M | 3.49 | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | []() | []()
-**D-FINE-M** | Objects365+COCO | **55.0** |  19M | 5.62 | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | []() | []()
-**D-FINE-L** | Objects365+COCO | **56.9** |  31M | 8.07 | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | []() | []()
-**D-FINE-X** | Objects365+COCO | **59.0** |  62M | 12.89 | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | []() | []()
+**D-FINE-S** | Objects365+COCO | **50.3** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | []() | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_s_obj2coco_log.txt)
+**D-FINE-M** | Objects365+COCO | **55.0** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | []() | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_m_obj2coco_log.txt)
+**D-FINE-L** | Objects365+COCO | **56.9** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | []() | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log.txt)
+**D-FINE-X** | Objects365+COCO | **59.0** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | []() | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
 <details>
 <summary> Pretrained Models </summary>
 
 | 模型 | 数据集 | AP<sup>5000</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | Objects365 | **30.1** | 10M | 3.49 | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | []() | []()
-**D-FINE-M** | Objects365 | **55.0** | 19M | 5.62 | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | []() | []()
-**D-FINE-L** | Objects365 | **56.9** | 31M | 8.07 | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | []() | []()
-**D-FINE-X** | Objects365 | **59.0** | 62M | 12.89 | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | []() | []()
+**D-FINE-S** | Objects365 | **30.7** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | []() | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_s_obj365_log.txt)
+**D-FINE-M** | Objects365 | **55.0** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | []() | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_m_obj365_log.txt)
+**D-FINE-L** | Objects365 | **56.9** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | []() | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log.txt)
+**D-FINE-X** | Objects365 | **46.0** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | []() | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_x_obj365_log.txt)
 
 </details>
 
@@ -416,10 +416,10 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
     ema:  # 添加 EMA 设置
         decay: 0.9998  # 根据 1 - (1 - decay) * 2 调整
-        warmups: 500  # 减半
+        warmups: 250  # 减半
 
     lr_warmup_scheduler:
-        warmup_duration: 250  # 减半
+        warmup_duration: 125  # 减半
     ```
 
 </details>
@@ -519,14 +519,40 @@ python reference/convert_weight.py model.pth
 ```
 </details>
 
-## 可视化
+## 图表与可视化
 
-在各种检测场景中展示了 FDR 的可视化，其中包含初始和优化后的边界框，同时对比了未加权的分布和加权后分布。
+<details> 
+<summary> FDR 和 GO-LSD </summary>
 
+D-FINE与FDR概览。概率分布作为更细粒度的中间表征，通过解码器层以残差方式进行迭代优化。应用非均匀加权函数以实现更精细的定位。
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/fdr-1.jpg" alt="细粒度分布优化过程" width="1000"> </p>
+GO-LSD流程概览。通过DDF损失函数和解耦加权策略将最终层分布中的定位知识蒸馏到前面的层中。
+<p align="center"> <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/go_lsd-1.jpg" alt="GO-LSD流程" width="1000"> </p> 
 
-<p align="center">
-    <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000">
-</p>
+</details> 
+
+<details open>
+<summary> 分布可视化 </summary>
+
+FDR在检测场景中的可视化，包括初始和优化后的边界框，以及未加权和加权的分布图。
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000"> 
+</p> 
+
+</details> 
+
+<details> 
+<summary> 困难场景 </summary>
+
+以下可视化展示了D-FINE在各种复杂检测场景中的预测结果。这些场景包括遮挡、低光条件、运动模糊、景深效果和密集场景。尽管面临这些挑战，D-FINE依然能够生成准确的定位结果。
+
+<p align="center"> 
+<img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/hard_case-1.jpg" alt="D-FINE在挑战性场景中的预测" width="1000"> 
+</p> 
+
+</details>
 
 <!-- <table><tr>
 <td><img src=https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg border=0 width=1000></td>

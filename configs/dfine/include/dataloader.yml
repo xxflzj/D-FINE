@@ -20,6 +20,7 @@ train_dataloader:
   collate_fn:
     type: BatchImageCollateFuncion
     scales: [480, 512, 544, 576, 608, 672, 704, 736, 768, 800]
+    scale_ori_repeat: 3
     stop_epoch: 72 # epoch in [72, ~) stop `multiscales`
 
   shuffle: True

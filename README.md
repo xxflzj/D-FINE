@@ -67,29 +67,29 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 ### COCO
 | Model | Dataset | AP<sup>val</sup> | #Params | Latency | GFLOPs | config | checkpoint | logs |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | COCO | **48.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco2017/dfine_s_coco_log.txt)
-**D-FINE-M** | COCO | **52.3** | 19M | 5.62ms | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco2017/dfine_m_coco_log.txt)
-**D-FINE-L** | COCO | **54.0** | 31M | 8.07ms | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco2017/dfine_l_coco_log.txt)
-**D-FINE-X** | COCO | **55.8** | 62M | 12.89ms | 202 | [yml](./configs/dfine/dfine_hgnetv2_x_coco.yml) | [55.8](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco2017/dfine_x_coco_log.txt)
+**D-FINE-S** | COCO | **48.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_s_coco_log.txt)
+**D-FINE-M** | COCO | **52.3** | 19M | 5.62ms | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_m_coco_log.txt)
+**D-FINE-L** | COCO | **54.0** | 31M | 8.07ms | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_l_coco_log.txt)
+**D-FINE-X** | COCO | **55.8** | 62M | 12.89ms | 202 | [yml](./configs/dfine/dfine_hgnetv2_x_coco.yml) | [55.8](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_x_coco_log.txt)
 
 
 ### Objects365+COCO
 | Model | Dataset | AP<sup>val</sup> | #Params | Latency | GFLOPs | config | checkpoint | logs |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | Objects365+COCO | **50.3** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | []() | []()
-**D-FINE-M** | Objects365+COCO | **55.0** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | []() | []()
-**D-FINE-L** | Objects365+COCO | **56.9** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | []() | []()
-**D-FINE-X** | Objects365+COCO | **59.0** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | []() | []()
+**D-FINE-S** | Objects365+COCO | **50.7** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | [50.7](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_s_obj2coco_log.txt)
+**D-FINE-M** | Objects365+COCO | **55.1** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | [55.1](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_m_obj2coco_log.txt)
+**D-FINE-L** | Objects365+COCO | **57.1** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.1](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log.txt)
+**D-FINE-X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
 <details>
 <summary> Pretrained Models </summary>
 
 | Model | Dataset | AP<sup>5000</sup> | #Params | Latency | GFLOPs | config | checkpoint | logs |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-**D-FINE-S** | Objects365 | **30.7** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | []() | []()
-**D-FINE-M** | Objects365 | **55.0** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | []() | []()
-**D-FINE-L** | Objects365 | **56.9** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | []() | []()
-**D-FINE-X** | Objects365 | **46.0** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | []() | []()
+**D-FINE-S** | Objects365 | **30.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | [30.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_s_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_s_obj365_log.txt)
+**D-FINE-M** | Objects365 | **37.4** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | [37.4](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_m_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_m_obj365_log.txt)
+**D-FINE-L** | Objects365 | **40.6** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [40.6](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_l_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log.txt)
+**D-FINE-X** | Objects365 | **46.5** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | [46.5](https://github.com/Peterande/storage/releases/download/dfinev1/dfine_x_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_x_obj365_log.txt)
 
 </details>
 
@@ -421,10 +421,10 @@ For example, if you want to double the total batch size when training D-FINE-L o
 
     ema:  # added EMA settings
         decay: 0.9998  # adjusted by 1 - (1 - decay) * 2
-        warmups: 500  # halved
+        warmups: 250  # halved
 
     lr_warmup_scheduler:
-        warmup_duration: 250  # halved
+        warmup_duration: 125  # halved
     ```
 
 </details>
@@ -522,12 +522,51 @@ python reference/convert_weight.py model.pth
 ```
 </details>
 
-## Visualizations
+## Figures and Visualizations
+
+<details>
+<summary> FDR and GO-LSD </summary>
+
+1. Overview of D-FINE with FDR. The probability distributions that act as a more fine-
+grained intermediate representation are iteratively refined by the decoder layers in a residual manner.
+Non-uniform weighting functions are applied to allow for finer localization.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/fdr-1.jpg" alt="Fine-grained Distribution Refinement Process" width="1000">
+</p>
+
+2. Overview of GO-LSD process. Localization knowledge from the final layer’s refined
+distributions is distilled into earlier layers through DDF loss with decoupled weighting strategies.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/go_lsd-1.jpg" alt="GO-LSD Process" width="1000">
+</p>
+
+</details>
+
+<details open>
+<summary> Distributions </summary>
+
 Visualizations of FDR across detection scenarios with initial and refined bounding boxes, along with unweighted and weighted distributions.
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000">
 </p>
+
+</details>
+
+<details>
+<summary> Hard Cases </summary>
+
+The following visualization demonstrates D-FINE's predictions in various complex detection scenarios. These include cases with occlusion, low-light conditions, motion blur, depth of field effects, and densely populated scenes. Despite these challenges, D-FINE consistently produces accurate localization results.
+
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/hard_case-1.jpg" alt="D-FINE Predictions in Challenging Scenarios" width="1000">
+</p>
+
+</details>
+
+
 
 <!-- <div style="display: flex; flex-wrap: wrap; justify-content: center; margin: 0; padding: 0;">
     <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" style="width:99.96%; margin: 0; padding: 0;" />

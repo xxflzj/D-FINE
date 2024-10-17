@@ -237,6 +237,8 @@ def main(args):
             
             session = fo.launch_app(dataset)
             cfg = YAMLConfig(args.config, resume=args.resume)
+            if 'HGNetv2' in cfg.yaml_cfg:
+                cfg.yaml_cfg['HGNetv2']['pretrained'] = False
             if args.resume:
                 checkpoint = torch.load(args.resume, map_location='cpu') 
                 if 'ema' in checkpoint:
@@ -248,19 +250,20 @@ def main(args):
 
             # NOTE load train mode state -> convert to deploy mode
             cfg.model.load_state_dict(state)
-            predictions_view = dataset.take(5000, seed=51)
+            predictions_view = dataset.take(100, seed=51)
 
+            model = CustomModel(cfg)
+            L = model.model.decoder.decoder.eval_idx
             # Apply models and save predictions in different label fields
-            for i in [5]:
-                model = CustomModel(cfg)
+            for i in [L]:
                 model.model.decoder.decoder.eval_idx = i
                 label_field = "predictions{:d}".format(i)
                 predictions_view.apply_model(model, label_field=label_field)
 
             # filter_by_predictions5_confidence(predictions_view, confidence_threshold=0.3)
-            for i in [5]:
+            for i in [L]:
                 label_field = "predictions{:d}".format(i)
-                predictions_view = predictions_view.filter_labels(label_field, F("confidence") > 0.3, only_matches=False)
+                predictions_view = predictions_view.filter_labels(label_field, F("confidence") > 0.5, only_matches=False)
                 eval_key = "eval{:d}".format(i)
                 _ = predictions_view.evaluate_detections(
                     label_field,
@@ -279,13 +282,13 @@ def main(args):
                 export_dir="saved_predictions_view",
                 dataset_type=fo.types.FiftyOneDataset
             )
-            filtered_view.export(
-                export_dir="saved_filtered_view",
-                dataset_type=fo.types.FiftyOneDataset
-            )
+            # filtered_view.export(
+            #     export_dir="saved_filtered_view",
+            #     dataset_type=fo.types.FiftyOneDataset
+            # )
 
         # Display the filtered view
-        session.view = filtered_view
+        session.view = predictions_view
 
         # Keep the session open
         while True:

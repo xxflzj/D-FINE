@@ -21,6 +21,9 @@ def main(args, ):
     """
     cfg = YAMLConfig(args.config, resume=args.resume)
 
+    if 'HGNetv2' in cfg.yaml_cfg:
+        cfg.yaml_cfg['HGNetv2']['pretrained'] = False
+        
     if args.resume:
         checkpoint = torch.load(args.resume, map_location='cpu')
         if 'ema' in checkpoint:

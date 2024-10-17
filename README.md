@@ -95,7 +95,7 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 
 **Notes:**
 
-- **AP^{val}** is evaluated on *MSCOCO val2017* dataset, and **AP<sup>5000</sup>** is evaluated on the first 5000 samples of the *Objects365* validation set.
+- **AP<sup>val</sup>** is evaluated on *MSCOCO val2017* dataset, and **AP<sup>5000</sup>** is evaluated on the first 5000 samples of the *Objects365* validation set.
 - **Latency** is evaluated on a single T4 GPU with $batch\\_size = 1$, $fp16$, and $TensorRT==10.4.0$.
 - **Objects365+COCO** in the table means finetuned model on *COCO* using pretrained weights trained on *Objects365*.
 
@@ -106,14 +106,10 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 ### Setup
 
 ```shell
-
+conda create -n dfine python=3.11.9
+conda activate dfine
 pip install -r requirements.txt
 ```
-
-
-
-
-
 
 
 ### Data Preparation
@@ -121,7 +117,7 @@ pip install -r requirements.txt
 <details>
 <summary> COCO2017 Dataset </summary>
 
-1. Download COCO2017 from [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017). 
+1. Download COCO2017 from [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017) or [COCO](https://cocodataset.org/#download). 
 1. Modify paths in [coco_detection.yml](./configs/dataset/coco_detection.yml)
 
     ```yaml
@@ -206,8 +202,8 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
         img_folder: /data/Objects365/data/train
         ann_file: /data/Objects365/data/train/new_zhiyuan_objv2_train_resized.json
     val_dataloader:
-        img_folder:  /data/Objects365/data/val/
-        ann_file:  /data/Objects365/data/val/new_zhiyuan_objv2_val_resized.json
+        img_folder: /data/Objects365/data/val/
+        ann_file: /data/Objects365/data/val/new_zhiyuan_objv2_val_resized.json
     ```
 
 
@@ -323,7 +319,7 @@ To train on your custom dataset, you need to organize it in the COCO format. Fol
 <!-- <summary>1. Training </summary> -->
 1. Set Model
 ```shell
-export model=l
+export model=l  # s m l x  # s m l x
 ```
 
 2. Training
@@ -334,13 +330,13 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 <!-- <summary>2. Testing </summary> -->
 3. Testing
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml -r model.pth --test-only
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml --test-only -r model.pth
 ```
 
 <!-- <summary>3. Tuning </summary> -->
 4. Tuning
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml -t model.pth --use-amp --seed=0
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml --use-amp --seed=0 -t model.pth
 ```
 </details>
 
@@ -350,7 +346,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 1. Set Model
 ```shell
-export model=l
+export model=l  # s m l x
 ```
 
 2. Training on Objects365
@@ -366,7 +362,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 <!-- <summary>2. Testing </summary> -->
 4. Testing
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml -r model.pth --test-only
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml --test-only -r model.pth
 ```
 </details>
 
@@ -376,7 +372,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 1. Set Model
 ```shell
-export model=l
+export model=l  # s m l x
 ```
 
 2. Training on Custom Dataset
@@ -386,7 +382,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 <!-- <summary>2. Testing </summary> -->
 3. Testing
 ```shell
-CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/custom/dfine_hgnetv2_${model}_custom.yml -r model.pth --test-only
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/custom/dfine_hgnetv2_${model}_custom.yml --test-only -r model.pth
 ```
 </details>
 
@@ -421,10 +417,10 @@ For example, if you want to double the total batch size when training D-FINE-L o
 
     ema:  # added EMA settings
         decay: 0.9998  # adjusted by 1 - (1 - decay) * 2
-        warmups: 250  # halved
+        warmups: 500  # halved
 
     lr_warmup_scheduler:
-        warmup_duration: 125  # halved
+        warmup_duration: 250  # halved
     ```
 
 </details>
@@ -437,8 +433,8 @@ For example, if you want to double the total batch size when training D-FINE-L o
 <!-- <summary>4. Export onnx </summary> -->
 1. Setup
 ```shell
-export model=l
 pip install onnx onnxsim
+export model=l  # s m l x
 ```
 
 2. Export onnx
@@ -459,8 +455,8 @@ trtexec --onnx="model.onnx" --saveEngine="model.engine" --fp16
 
 1. Setup
 ```shell
-export model=l
 pip install -r tools/inference/requirements.txt
+export model=l  # s m l x
 ```
 
 
@@ -478,8 +474,8 @@ python tools/inference/torch_inf.py -c configs/dfine/dfine_hgnetv2_${model}_coco
 
 1. Setup
 ```shell
-export model=l
 pip install -r tools/benchmark/requirements.txt
+export model=l  # s m l x
 ```
 
 <!-- <summary>6. Benchmark </summary> -->
@@ -499,8 +495,8 @@ python tools/benchmark/trt_benchmark.py --COCO_dir path/to/COCO2017 --engine_dir
 
 1. Setup
 ```shell
-export model=l
 pip install fiftyone
+export model=l  # s m l x
 ```
 4. Voxel51 Fiftyone Visualization ([fiftyone](https://github.com/voxel51/fiftyone))
 ```shell

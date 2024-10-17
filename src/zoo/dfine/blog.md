@@ -2,7 +2,8 @@ English | [简体中文](blog_cn.md)
 
 ## 🔥Revolutionizing Real-Time Object Detection: D-FINE vs. YOLO and Other DETR Models
 
-In the rapidly evolving field of real-time object detection, **D-FINE** emerges as a revolutionary approach that significantly enhances the performance of existing models, such as YOLOv10, YOLO11, and RT-DETR v1/v2/v3. After pretraining on the large-scale Objects365 dataset, **D-FINE** outperforms its competitor LW-DETR, achieving an impressive 59.3% AP on the COCO dataset. While maintaining excellent frame rates, parameter counts, and computational complexity, it sets a new standard for performance. This positions **D-FINE** as a leader in the realm of real-time object detection, laying the groundwork for future research.
+
+In the rapidly evolving field of real-time object detection, **D-FINE** emerges as a revolutionary approach that significantly surpasses existing models such as YOLOv10, YOLO11, and RT-DETR v1/v2/v3, raising the performance ceiling for real-time object detection. After pretraining on the large-scale Objects365 dataset, **D-FINE** far exceeds its competitor LW-DETR, achieving up to **59.3%** AP on the COCO dataset while maintaining excellent frame rates, parameter number, and computational complexity. This positions D-FINE as a leader in the realm of real-time object detection, laying the groundwork for future research advancements.
 
 ### 🔍 Discover the Key Innovations Behind D-FINE
 

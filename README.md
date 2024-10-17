@@ -58,7 +58,7 @@ University of Science and Technology of China
 D-FINE is a powerful real-time object detector that redefines the bounding box regression task in DETRs as Fine-grained Distribution Refinement (FDR) and introduces Global Optimal Localization Self-Distillation (GO-LSD), achieving outstanding performance without introducing additional inference and training costs.
 
 ## 🚀 Updates
-- [x] **\[2024.10.3\]** Release D-FINE series.
+- [x] **\[2024.10.18\]** Release D-FINE series.
 <!-- - 🔜 **\[Next\]** Release D-FINE series pretrained on Objects365. -->
 
 

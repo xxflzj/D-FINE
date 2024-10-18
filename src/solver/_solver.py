@@ -183,8 +183,11 @@ class BaseSolver(object):
             pretrain_state_dict = state['model']
 
         # Adjust head parameters between datasets
-        adjusted_state_dict = self._adjust_head_parameters(module.state_dict(), pretrain_state_dict)
-        stat, infos = self._matched_state(module.state_dict(), adjusted_state_dict)
+        try:
+            adjusted_state_dict = self._adjust_head_parameters(module.state_dict(), pretrain_state_dict)
+            stat, infos = self._matched_state(module.state_dict(), adjusted_state_dict)
+        except:
+            stat, infos = self._matched_state(module.state_dict(), pretrain_state_dict)
 
         module.load_state_dict(stat, strict=False)
         print(f'Load model.state_dict, {infos}')

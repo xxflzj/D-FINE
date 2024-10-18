@@ -7,9 +7,9 @@
 </h2>
 
 <p align="center">
-    <!-- <a href="https://github.com/lyuwenyu/RT-DETR/blob/main/LICENSE">
-        <img alt="license" src="https://img.shields.io/badge/LICENSE-Apache%202.0-blue">
-    </a> -->
+    <a href="https://paperswithcode.com/sota/real-time-object-detection-on-coco?p=d-fine-redefine-regression-task-in-detrs-as">
+        <img alt="sota" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/d-fine-redefine-regression-task-in-detrs-as/real-time-object-detection-on-coco">
+    </a>
     <a href="https://github.com/Peterande/D-FINE/blob/master/LICENSE">
         <img alt="license" src="https://img.shields.io/badge/LICENSE-Apache%202.0-blue">
     </a>
@@ -17,11 +17,11 @@
         <img alt="prs" src="https://img.shields.io/github/issues-pr/Peterande/D-FINE">
     </a>
     <a href="https://github.com/Peterande/D-FINE/issues">
-        <img alt="issues" src="https://img.shields.io/github/issues/Peterande/D-FINE?color=pink">
+        <img alt="issues" src="https://img.shields.io/github/issues/Peterande/D-FINE?color=olive">
     </a>
-    <a href="https://arxiv.org/abs/2410.13842">
+<!--     <a href="https://arxiv.org/abs/2410.13842">
         <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.13842-red">
-    </a>
+    </a> -->
     <a href="mailto: pengyansong@mail.ustc.edu.cn">
         <img alt="email" src="https://img.shields.io/badge/contact_me-email-yellow">
     </a>
@@ -33,7 +33,7 @@
 <p align="center">
     📄 这是该文章的官方实现:
     <br>
-    <a href="https://arxiv.org/abs/xxxxxx">D-FINE: Redefine Regression Task of DETRs as Fine-grained Distribution Refinement</a>
+    <a href="https://arxiv.org/abs/2410.13842">D-FINE: Redefine Regression Task of DETRs as Fine-grained Distribution Refinement</a>
 </p>
 
 

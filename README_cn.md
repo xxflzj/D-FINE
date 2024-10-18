@@ -564,7 +564,14 @@ FDR在检测场景中的可视化，包括初始和优化后的边界框，以�
 <summary> bibtex </summary>
 
 ```latex
-
+@misc{peng2024dfine,
+      title={D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement}, 
+      author={Yansong Peng and Hebei Li and Peixi Wu and Yueyi Zhang and Xiaoyan Sun and Feng Wu},
+      year={2024},
+      eprint={2410.13842},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
 ```
 </details>
 

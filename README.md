@@ -11,7 +11,7 @@ English | [简体中文](README_cn.md) | [Blog](src/zoo/dfine/blog.md)
         <img alt="license" src="https://img.shields.io/badge/LICENSE-Apache%202.0-blue">
     </a> -->
     <a href="https://github.com/Peterande/D-FINE/blob/master/LICENSE">
-        <img alt="license" src="https://img.shields.io/github/license/Peterande/D-FINE">
+        <img alt="license" src="https://img.shields.io/badge/LICENSE-Apache%202.0-blue">
     </a>
     <a href="https://github.com/Peterande/D-FINE/pulls">
         <img alt="prs" src="https://img.shields.io/github/issues-pr/Peterande/D-FINE">
@@ -19,8 +19,8 @@ English | [简体中文](README_cn.md) | [Blog](src/zoo/dfine/blog.md)
     <a href="https://github.com/Peterande/D-FINE/issues">
         <img alt="issues" src="https://img.shields.io/github/issues/Peterande/D-FINE?color=pink">
     </a>
-    <a href="https://arxiv.org/abs/xxx.xxx">
-        <img alt="arXiv" src="https://img.shields.io/badge/arXiv-xxx.xxx-red">
+    <a href="https://arxiv.org/abs/2410.13842">
+        <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.13842-red">
     </a>
     <a href="mailto: pengyansong@mail.ustc.edu.cn">
         <img alt="email" src="https://img.shields.io/badge/contact_me-email-yellow">

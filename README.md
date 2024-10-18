@@ -1,16 +1,14 @@
 <!--# [D-FINE: Redefine Regression Task of DETRs as Fine-grained Distribution Refinement](https://arxiv.org/abs/xxxxxx) -->
 
-English | [简体中文](README_cn.md) | [Blog](src/zoo/dfine/blog.md) [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/d-fine-redefine-regression-task-in-detrs-as/real-time-object-detection-on-coco)](https://paperswithcode.com/sota/real-time-object-detection-on-coco?p=d-fine-redefine-regression-task-in-detrs-as)
+English | [简体中文](README_cn.md) | [Blog](src/zoo/dfine/blog.md)
 
 <h2 align="center">
   D-FINE: Redefine Regression Task of DETRs as Fine&#8209;grained&nbsp;Distribution&nbsp;Refinement
 </h2>
 
 
+
 <p align="center">
-    <a href="https://paperswithcode.com/sota/real-time-object-detection-on-coco?p=d-fine-redefine-regression-task-in-detrs-as">
-        <img alt="sota" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/d-fine-redefine-regression-task-in-detrs-as/real-time-object-detection-on-coco">
-    </a>
     <a href="https://github.com/Peterande/D-FINE/blob/master/LICENSE">
         <img alt="license" src="https://img.shields.io/badge/LICENSE-Apache%202.0-blue">
     </a>
@@ -20,9 +18,9 @@ English | [简体中文](README_cn.md) | [Blog](src/zoo/dfine/blog.md) [![PWC](h
     <a href="https://github.com/Peterande/D-FINE/issues">
         <img alt="issues" src="https://img.shields.io/github/issues/Peterande/D-FINE?color=olive">
     </a>
-<!--     <a href="https://arxiv.org/abs/2410.13842">
+    <a href="https://arxiv.org/abs/2410.13842">
         <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.13842-red">
-    </a> -->
+    </a>
     <a href="mailto: pengyansong@mail.ustc.edu.cn">
         <img alt="email" src="https://img.shields.io/badge/contact_me-email-yellow">
     </a>
@@ -31,11 +29,14 @@ English | [简体中文](README_cn.md) | [Blog](src/zoo/dfine/blog.md) [![PWC](h
     </a>
 </p>
 
+
+
 <p align="center">
     📄 This is the official implementation of the paper:
     <br>
     <a href="https://arxiv.org/abs/2410.13842">D-FINE: Redefine Regression Task of DETRs as Fine-grained Distribution Refinement</a>
 </p>
+
 
 
 <p align="center">
@@ -44,6 +45,12 @@ Yansong Peng, Hebei Li, Peixi Wu, Yueyi Zhang, Xiaoyan Sun, and Feng Wu
 
 <p align="center">
 University of Science and Technology of China
+</p>
+
+<p align="center">
+    <a href="https://paperswithcode.com/sota/real-time-object-detection-on-coco?p=d-fine-redefine-regression-task-in-detrs-as">
+        <img alt="sota" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/d-fine-redefine-regression-task-in-detrs-as/real-time-object-detection-on-coco">
+    </a>
 </p>
 
 <!-- <table><tr>

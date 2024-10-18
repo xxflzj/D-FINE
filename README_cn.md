@@ -7,9 +7,9 @@
 </h2>
 
 <p align="center">
-    <a href="https://paperswithcode.com/sota/real-time-object-detection-on-coco?p=d-fine-redefine-regression-task-in-detrs-as">
+    <!-- <a href="https://paperswithcode.com/sota/real-time-object-detection-on-coco?p=d-fine-redefine-regression-task-in-detrs-as">
         <img alt="sota" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/d-fine-redefine-regression-task-in-detrs-as/real-time-object-detection-on-coco">
-    </a>
+    </a> -->
     <a href="https://github.com/Peterande/D-FINE/blob/master/LICENSE">
         <img alt="license" src="https://img.shields.io/badge/LICENSE-Apache%202.0-blue">
     </a>
@@ -19,9 +19,9 @@
     <a href="https://github.com/Peterande/D-FINE/issues">
         <img alt="issues" src="https://img.shields.io/github/issues/Peterande/D-FINE?color=olive">
     </a>
-<!--     <a href="https://arxiv.org/abs/2410.13842">
+    <a href="https://arxiv.org/abs/2410.13842">
         <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.13842-red">
-    </a> -->
+    </a>
     <a href="mailto: pengyansong@mail.ustc.edu.cn">
         <img alt="email" src="https://img.shields.io/badge/contact_me-email-yellow">
     </a>
@@ -45,6 +45,11 @@
 中国科学技术大学
 </p>
 
+<p align="center">
+    <a href="https://paperswithcode.com/sota/real-time-object-detection-on-coco?p=d-fine-redefine-regression-task-in-detrs-as">
+        <img alt="sota" src="https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/d-fine-redefine-regression-task-in-detrs-as/real-time-object-detection-on-coco">
+    </a>
+</p>
 
 <p align="center">
     <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/stats_padded.png" width="1000">

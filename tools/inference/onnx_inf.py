@@ -19,9 +19,9 @@ def draw(images, labels, boxes, scores, thrh = 0.6):
         lab = labels[i][scr > thrh]
         box = boxes[i][scr > thrh]
 
-        for b in box:
-            draw.rectangle(list(b), outline='red',)
-            draw.text((b[0], b[1]), text=str(lab[i].item()), fill='blue', )
+        for lbl, bb in zip(lab, box):
+            draw.rectangle(list(bb), outline='red',)
+            draw.text((bb[0], bb[1]), text=str(lbl), fill='blue', )
 
         im.save(f'results_{i}.jpg')
 

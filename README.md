@@ -327,7 +327,7 @@ To train on your custom dataset, you need to organize it in the COCO format. Fol
 <!-- <summary>1. Training </summary> -->
 1. Set Model
 ```shell
-export model=l  # s m l x  # s m l x
+export model=l  # s m l x
 ```
 
 2. Training

@@ -60,6 +60,10 @@ University of Science and Technology of China
 </tr></table> -->
 
 <p align="center">
+<strong>If you like D-FINE, please give us a ⭐! Your support motivates us to keep improving!</strong>
+</p>
+
+<p align="center">
     <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/stats_padded.png" width="1000">
 </p>
 

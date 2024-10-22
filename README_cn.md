@@ -51,6 +51,9 @@
     </a>
 </p>
 
+
+<p align="center"> <strong>如果你喜欢 D-FINE，请给我们一个 ⭐！你的支持激励我们不断前进！</strong> </p>
+
 <p align="center">
     <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/stats_padded.png" width="1000">
 </p>

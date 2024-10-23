@@ -586,7 +586,7 @@ FDR在检测场景中的可视化，包括初始和优化后的边界框，以�
   
 我们分别使用 D-FINE 和 YOLO11 对 YouTube 上的一段复杂街景视频进行了目标检测。尽管存在逆光、虚化模糊和密集遮挡等不利因素，D-FINE-X 依然成功检测出几乎所有目标，包括背包、自行车和信号灯等难以察觉的小目标，其置信度、以及模糊边缘的定位准确度明显高于 YOLO11x。
 
-https://github.com/user-attachments/assets/d5b50dfe-ecdd-4c71-ad6a-911640de99e6
+https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 
 </details>
 

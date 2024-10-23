@@ -601,7 +601,7 @@ The following visualization demonstrates D-FINE's predictions in various complex
   
 We conduct object detection using D-FINE and YOLO11 on a complex street scene video from YouTube. Despite challenging conditions such as backlighting, motion blur, and dense occlusion, D-FINE-X successfully detects nearly all targets, including subtle small objects like backpacks, bicycles, and traffic lights. Its confidence scores and the localization precision for blurred edges are significantly higher than those of YOLO11.
 
-https://github.com/user-attachments/assets/d5b50dfe-ecdd-4c71-ad6a-911640de99e6
+https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 
 </details>
 

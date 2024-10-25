@@ -397,7 +397,12 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/custom/dfine_hgnetv2_${model}_custom.yml --test-only -r model.pth
 ```
 
-4. [Optional] Modify Class Mappings:
+4. Tuning on Custom Dataset
+```shell
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/custom/dfine_hgnetv2_${model}_obj2custom.yml --use-amp --seed=0 -t model.pth
+```
+
+5. [Optional] Modify Class Mappings:
    
 When using the Objects365 pre-trained weights to train on your custom dataset, the example assumes that your dataset only contains the classes `'Person'` and `'Car'`. For faster convergence, you can modify `self.obj365_ids` in `src/solver/_solver.py` as follows:
 

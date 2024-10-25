@@ -392,7 +392,12 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/custom/dfine_hgnetv2_${model}_custom.yml --test-only -r model.pth
 ```
 
-4. [可选] 修改类映射:
+4. 在自定义数据集上微调
+```shell
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/custom/dfine_hgnetv2_${model}_obj2custom.yml --use-amp --seed=0 -t model.pth
+```
+
+5. [可选] 修改类映射:
    
 在使用 Objects365 预训练权重训练自定义数据集时，示例中假设自定义数据集仅有 `'Person'` 和 `'Car'` 类，您可以将其替换为数据集中对应的任何类别。为了加快收敛，可以在 `src/solver/_solver.py` 中修改 `self.obj365_ids`，如下所示：
 

@@ -62,8 +62,8 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 
 ## 🚀 Updates
 - [x] **\[2024.10.18\]** 发布 D-FINE 系列。
-<!-- - 🔜 **\[Next\]** Release D-FINE series pretrained on Objects365. -->
-
+- [x] **\[2024.10.25\]** 更新 **D-FINE-L** 预训练模型，性能提升了 **1.7%**。
+  
 
 ## 模型库
 
@@ -91,8 +91,9 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 **D-FINE-S** | Objects365 | **30.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | [30.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_s_obj365_log.txt)
 **D-FINE-M** | Objects365 | **37.4** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | [37.4](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_m_obj365_log.txt)
 **D-FINE-L** | Objects365 | **40.6** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [40.6](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log.txt)
+**D-FINE-L (E23)** | Objects365 | **42.3** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [42.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365_e23.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log_e23.txt)
 **D-FINE-X** | Objects365 | **46.5** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | [46.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_x_obj365_log.txt)
-
+- **E23**: 重新训练，并将训练延长至 23 个 epoch。
 </details>
 
 **注意：**

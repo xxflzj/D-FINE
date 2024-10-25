@@ -94,7 +94,7 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 **D-FINE-X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
 <details>
-<summary> Pretrained Models </summary>
+<summary> Pretrained Models on Objects365 (Best generalization) </summary>
 
 | Model | Dataset | AP<sup>5000</sup> | #Params | Latency | GFLOPs | config | checkpoint | logs |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
@@ -104,13 +104,14 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 **D-FINE-L (E24)** | Objects365 | **42.4** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [42.4](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365_e23.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log_e23.txt)
 **D-FINE-X** | Objects365 | **46.5** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | [46.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_x_obj365_log.txt)
 - **E24**: Re-trained and extended the training to 24 epochs.
+- **AP<sup>5000</sup>** is evaluated on the first 5000 samples of the *Objects365* validation set.
 </details>
 
 **Notes:**
 
-- **AP<sup>val</sup>** is evaluated on *MSCOCO val2017* dataset, and **AP<sup>5000</sup>** is evaluated on the first 5000 samples of the *Objects365* validation set.
+- **AP<sup>val</sup>** is evaluated on *MSCOCO val2017* dataset.
 - **Latency** is evaluated on a single T4 GPU with $batch\\_size = 1$, $fp16$, and $TensorRT==10.4.0$.
-- **Objects365+COCO** in the table means finetuned model on *COCO* using pretrained weights trained on *Objects365*.
+- **Objects365+COCO** means finetuned model on *COCO* using pretrained weights trained on *Objects365*.
 
 
 
@@ -403,7 +404,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/custom/objects365/dfine_hgnetv2_${model}_obj2custom.yml --use-amp --seed=0 -t model.pth
 ```
 
-5. [Optional] Modify Class Mappings:
+5. **[Optional]** Modify Class Mappings:
    
 When using the Objects365 pre-trained weights to train on your custom dataset, the example assumes that your dataset only contains the classes `'Person'` and `'Car'`. For faster convergence, you can modify `self.obj365_ids` in `src/solver/_solver.py` as follows:
 

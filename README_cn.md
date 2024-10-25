@@ -84,7 +84,7 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 **D-FINE-X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
 <details>
-<summary> 预训练模型 </summary>
+<summary> Objects365 预训练模型 (泛化性最好) </summary>
 
 | 模型 | 数据集 | AP<sup>5000</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
@@ -94,12 +94,13 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 **D-FINE-L (E24)** | Objects365 | **42.4** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [42.4](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365_e23.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log_e23.txt)
 **D-FINE-X** | Objects365 | **46.5** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | [46.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_x_obj365_log.txt)
 - **E24**: 重新训练，并将训练延长至 24 个 epoch。
+- **AP<sup>5000</sup>** 是在 *Objects365* 验证集的前5000个样本上评估的。
 </details>
 
 **注意：**
-- **AP<sup>val</sup>** 是在 *MSCOCO val2017* 数据集上评估的, **AP<sup>5000</sup>** 是在 *Objects365* 验证集的前5000个样本上评估的。
+- **AP<sup>val</sup>** 是在 *MSCOCO val2017* 数据集上评估的。
 - **时延** 是在单张 T4 GPU 上以 $batch\\_size = 1$, $fp16$, 和 $TensorRT==10.4.0$ 评估的。
-- 表中的 **Objects365+COCO** 表示使用在 *Objects365* 上预训练的权重在 *COCO* 上微调的模型。
+- **Objects365+COCO** 表示使用在 *Objects365* 上预训练的权重在 *COCO* 上微调的模型。
 
 
 
@@ -398,7 +399,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/custom/objects365/dfine_hgnetv2_${model}_obj2custom.yml --use-amp --seed=0 -t model.pth
 ```
 
-5. [可选] 修改类映射:
+5. **[可选项]** 修改类映射:
    
 在使用 Objects365 预训练权重训练自定义数据集时，示例中假设自定义数据集仅有 `'Person'` 和 `'Car'` 类，您可以将其替换为数据集中对应的任何类别。为了加快收敛，可以在 `src/solver/_solver.py` 中修改 `self.obj365_ids`，如下所示：
 

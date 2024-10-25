@@ -71,7 +71,7 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 
 ## 🚀 Updates
 - [x] **\[2024.10.18\]** Release D-FINE series.
-- [x] **\[2024.10.25\]** Update D-FINE-L (E24) pretrained model, with performance improved by 1.8%. Add custom dataset finetuning configs (#7).
+- [x] **\[2024.10.25\]** Update D-FINE-L (E24) pretrained model, with performance improved by 1.8%. Add custom dataset finetuning configs ([#7](https://github.com/Peterande/D-FINE/issues/7)).
 - [ ] **Coming soon**: Finetuned version of the D-FINE-L model to be updated soon.
 
 ## Model Zoo

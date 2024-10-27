@@ -63,7 +63,7 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 ## 🚀 Updates
 - [x] **\[2024.10.18\]** 发布 D-FINE 系列。
 - [x] **\[2024.10.25\]** 更新 D-FINE-L (E24) 预训练模型，性能提升了 1.8%。添加了自定义数据集微调配置文件 ([#7](https://github.com/Peterande/D-FINE/issues/7))。
-- [ ] **即将更新**: D-FINE-L 模型的 COCO 微调版本即将更新。
+- [x] **\[2024.10.27\]** 优化训练过程自定义输入尺寸的流程，并补充相关修改教程。
 
 ## 模型库
 
@@ -458,6 +458,35 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 </details>
 
+<details>
+<summary> 自定义输入尺寸 </summary>
+
+如果你想在 COCO2017 上使用 **D-FINE-L** 进行 320x320 尺寸的图片训练，按照以下步骤操作：
+
+1. **修改你的 [dataloader.yml](./configs/dfine/include/dataloader.yml)**：
+
+    ```yaml
+
+    train_dataloader: 
+    dataset: 
+        transforms:
+            ops:
+                - {type: Resize, size: [320, 320], }
+    collate_fn:
+        base_size: 320
+    dataset: 
+        transforms:
+            ops: 
+                - {type: Resize, size: [320, 320], } 
+    ```
+
+2. **修改你的 [dfine_hgnetv2.yml](./configs/dfine/include/dfine_hgnetv2.yml)**：
+
+    ```yaml
+    eval_spatial_size: [320, 320]
+    ```
+
+</details>
 
 
 ## 工具

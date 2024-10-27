@@ -77,17 +77,26 @@ class BaseCollateFunction(object):
         raise NotImplementedError('')
 
 
+def generate_scales(base_size, base_size_repeat):
+    scale_repeat = (base_size - int(base_size * 0.75 / 32) * 32) // 32
+    scales = [int(base_size * 0.75 / 32) * 32 + i * 32 for i in range(scale_repeat)]
+    scales += [base_size] * base_size_repeat
+    scales += [int(base_size * 1.25 / 32) * 32 - i * 32 for i in range(scale_repeat)]
+    return scales
+
+
 @register()
 class BatchImageCollateFuncion(BaseCollateFunction):
     def __init__(
         self, 
-        scales=None, 
         stop_epoch=None, 
         ema_restart_decay=0.9999,
-        scale_ori_repeat=3,
+        base_size=640,
+        base_size_repeat=3,
     ) -> None:
         super().__init__()
-        self.scales = scales + [640] * scale_ori_repeat if scales is not None else scales
+        self.base_size = base_size
+        self.scales = generate_scales(base_size, base_size_repeat)
         self.stop_epoch = stop_epoch if stop_epoch is not None else 100000000
         self.ema_restart_decay = ema_restart_decay
         # self.interpolation = interpolation

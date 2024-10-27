@@ -57,7 +57,7 @@ train_dataloader:
         epoch: 500
   collate_fn:
     stop_epoch: 500
-    scale_ori_repeat: 20
+    base_size_repeat: 20
 
 checkpoint_freq: 1
 print_freq: 1000

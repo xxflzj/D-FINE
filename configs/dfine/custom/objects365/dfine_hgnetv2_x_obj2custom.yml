@@ -52,7 +52,7 @@ train_dataloader:
   collate_fn:
     stop_epoch: 30
     ema_restart_decay: 0.9999
-    scale_ori_repeat: 3
+    base_size_repeat: 3
 
 ema:
   warmups: 0

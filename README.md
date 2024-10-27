@@ -72,7 +72,7 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 ## 🚀 Updates
 - [x] **\[2024.10.18\]** Release D-FINE series.
 - [x] **\[2024.10.25\]** Update D-FINE-L (E24) pretrained model, with performance improved by 1.8%. Add custom dataset finetuning configs ([#7](https://github.com/Peterande/D-FINE/issues/7)).
-- [ ] **Coming soon**: Finetuned version of the D-FINE-L model to be updated soon.
+- [x] **\[2024.10.27\]** Optimize the process for customizing input size during training and add relevant instructions.
 
 ## Model Zoo
 
@@ -466,6 +466,36 @@ For example, if you want to double the total batch size when training D-FINE-L o
 
 </details>
 
+
+<details>
+<summary> Customizing Input Size </summary>
+
+If you'd like to train **D-FINE-L** on COCO2017 with an input size of 320x320, follow these steps:
+
+1. **Modify your [dataloader.yml](./configs/dfine/include/dataloader.yml)**:
+
+    ```yaml
+
+    train_dataloader: 
+    dataset: 
+        transforms:
+            ops:
+                - {type: Resize, size: [320, 320], }
+    collate_fn:
+        base_size: 320
+    dataset: 
+        transforms:
+            ops: 
+                - {type: Resize, size: [320, 320], } 
+    ```
+
+2. **Modify your [dfine_hgnetv2.yml](./configs/dfine/include/dfine_hgnetv2.yml)**:
+
+    ```yaml
+    eval_spatial_size: [320, 320]
+    ```
+
+</details>
 
 ## Tools
 <details>

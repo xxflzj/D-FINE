@@ -69,10 +69,22 @@ University of Science and Technology of China
 
 D-FINE is a powerful real-time object detector that redefines the bounding box regression task in DETRs as Fine-grained Distribution Refinement (FDR) and introduces Global Optimal Localization Self-Distillation (GO-LSD), achieving outstanding performance without introducing additional inference and training costs.
 
+<details open>
+<summary> Video </summary>
+  
+<!-- We conduct object detection using D-FINE and YOLO11 on a complex street scene video from YouTube. Despite challenging conditions such as backlighting, motion blur, and dense occlusion, D-FINE-X successfully detects nearly all targets, including subtle small objects like backpacks, bicycles, and traffic lights. Its confidence scores and the localization precision for blurred edges are significantly higher than those of YOLO11. -->
+
+We use D-FINE and YOLO11 on a complex street scene video from [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A). Despite challenges like backlighting, motion blur, and dense crowd, D-FINE-X outperformed YOLO11x, detecting more targets with higher confidence and better precision.
+
+https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
+
+</details>
+
 ## 🚀 Updates
 - [x] **\[2024.10.18\]** Release D-FINE series.
-- [x] **\[2024.10.25\]** Update D-FINE-L (E24) pretrained model, with performance improved by 1.8%. Add custom dataset finetuning configs ([#7](https://github.com/Peterande/D-FINE/issues/7)).
+- [x] **\[2024.10.25\]** Add custom dataset finetuning configs ([#7](https://github.com/Peterande/D-FINE/issues/7)).
 - [x] **\[2024.10.27\]** Optimize the process for customizing input size during training and add relevant instructions.
+- [x] **\[2024.10.30\]** Update D-FINE-L (E25) pretrained model, with performance improved by 2.0%.
 
 ## Model Zoo
 
@@ -90,7 +102,8 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
 **D-FINE-S** | Objects365+COCO | **50.7** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | [50.7](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_s_obj2coco_log.txt)
 **D-FINE-M** | Objects365+COCO | **55.1** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | [55.1](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_m_obj2coco_log.txt)
-**D-FINE-L** | Objects365+COCO | **57.1** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.1](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log.txt)
+<!-- **D-FINE-L** | Objects365+COCO | **57.1** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.1](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log.txt) -->
+**D-FINE-L** | Objects365+COCO | **57.3** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj2coco_e25.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log_e25.txt)
 **D-FINE-X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
 <details>
@@ -101,14 +114,13 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 **D-FINE-S** | Objects365 | **30.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | [30.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_s_obj365_log.txt)
 **D-FINE-M** | Objects365 | **37.4** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | [37.4](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_m_obj365_log.txt)
 **D-FINE-L** | Objects365 | **40.6** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [40.6](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log.txt)
-**D-FINE-L (E24)** | Objects365 | **42.4** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [42.4](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365_e23.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log_e23.txt)
+**D-FINE-L (E25)** | Objects365 | **42.6** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [42.6](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365_e25.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log_e25.txt)
 **D-FINE-X** | Objects365 | **46.5** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | [46.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_x_obj365_log.txt)
-- **E24**: Re-trained and extended the training to 24 epochs.
+- **E25**: Re-trained and extended the pretraining to 25 epochs.
 - **AP<sup>5000</sup>** is evaluated on the first 5000 samples of the *Objects365* validation set.
 </details>
 
 **Notes:**
-
 - **AP<sup>val</sup>** is evaluated on *MSCOCO val2017* dataset.
 - **Latency** is evaluated on a single T4 GPU with $batch\\_size = 1$, $fp16$, and $TensorRT==10.4.0$.
 - **Objects365+COCO** means finetuned model on *COCO* using pretrained weights trained on *Objects365*.
@@ -633,14 +645,6 @@ The following visualization demonstrates D-FINE's predictions in various complex
 
 </details>
 
-<details open>
-<summary> Video </summary>
-  
-We conduct object detection using D-FINE and YOLO11 on a complex street scene video from YouTube. Despite challenging conditions such as backlighting, motion blur, and dense occlusion, D-FINE-X successfully detects nearly all targets, including subtle small objects like backpacks, bicycles, and traffic lights. Its confidence scores and the localization precision for blurred edges are significantly higher than those of YOLO11.
-
-https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
-
-</details>
 
 <!-- <div style="display: flex; flex-wrap: wrap; justify-content: center; margin: 0; padding: 0;">
     <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" style="width:99.96%; margin: 0; padding: 0;" />

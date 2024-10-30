@@ -60,10 +60,20 @@
 
 D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归任务重新定义为了细粒度的分布优化（FDR），并引入全局最优的定位自蒸馏（GO-LSD），在不增加额外推理和训练成本的情况下，实现了卓越的性能。
 
+<details open>
+<summary> 视频 </summary>
+  
+我们分别使用 D-FINE 和 YOLO11 对 [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A) 上的一段复杂街景视频进行了目标检测。尽管存在逆光、虚化模糊和密集遮挡等不利因素，D-FINE-X 依然成功检测出几乎所有目标，其置信度、以及模糊边缘的定位准确度明显高于 YOLO11x。
+
+https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
+
+</details>
+
 ## 🚀 Updates
 - [x] **\[2024.10.18\]** 发布 D-FINE 系列。
-- [x] **\[2024.10.25\]** 更新 D-FINE-L (E24) 预训练模型，性能提升了 1.8%。添加了自定义数据集微调配置文件 ([#7](https://github.com/Peterande/D-FINE/issues/7))。
+- [x] **\[2024.10.25\]** 添加了自定义数据集微调配置文件 ([#7](https://github.com/Peterande/D-FINE/issues/7))。
 - [x] **\[2024.10.27\]** 优化训练过程自定义输入尺寸的流程，并补充相关修改教程。
+- [x] **\[2024.10.30\]** 更新 D-FINE-L (E25) 预训练模型，性能提升了 2.0%。
 
 ## 模型库
 
@@ -80,7 +90,7 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
 **D-FINE-S** | Objects365+COCO | **50.7** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj2coco.yml) | [50.7](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_s_obj2coco_log.txt)
 **D-FINE-M** | Objects365+COCO | **55.1** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj2coco.yml) | [55.1](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_m_obj2coco_log.txt)
-**D-FINE-L** | Objects365+COCO | **57.1** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.1](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log.txt)
+**D-FINE-L** | Objects365+COCO | **57.3** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj2coco_e25.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log_e25.txt)
 **D-FINE-X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
 <details>
@@ -91,9 +101,9 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 **D-FINE-S** | Objects365 | **30.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/objects365/dfine_hgnetv2_s_obj365.yml) | [30.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_s_obj365_log.txt)
 **D-FINE-M** | Objects365 | **37.4** | 19M | 5.62ms | 57 | [yml](./configs/dfine/objects365/dfine_hgnetv2_m_obj365.yml) | [37.4](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_m_obj365_log.txt)
 **D-FINE-L** | Objects365 | **40.6** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [40.6](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log.txt)
-**D-FINE-L (E24)** | Objects365 | **42.4** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [42.4](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365_e23.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log_e23.txt)
+**D-FINE-L (E25)** | Objects365 | **42.6** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj365.yml) | [42.6](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj365_e25.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_l_obj365_log_e25.txt)
 **D-FINE-X** | Objects365 | **46.5** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj365.yml) | [46.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj365.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj365/dfine_x_obj365_log.txt)
-- **E24**: 重新训练，并将训练延长至 24 个 epoch。
+- **E25**: 重新训练，并将训练延长至 25 个 epoch。
 - **AP<sup>5000</sup>** 是在 *Objects365* 验证集的前5000个样本上评估的。
 </details>
 
@@ -617,14 +627,6 @@ FDR在检测场景中的可视化，包括初始和优化后的边界框，以�
 
 </details>
 
-<details open>
-<summary> 视频 </summary>
-  
-我们分别使用 D-FINE 和 YOLO11 对 YouTube 上的一段复杂街景视频进行了目标检测。尽管存在逆光、虚化模糊和密集遮挡等不利因素，D-FINE-X 依然成功检测出几乎所有目标，包括背包、自行车和信号灯等难以察觉的小目标，其置信度、以及模糊边缘的定位准确度明显高于 YOLO11x。
-
-https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
-
-</details>
 
 <!-- <table><tr>
 <td><img src=https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg border=0 width=1000></td>

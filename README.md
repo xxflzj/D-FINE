@@ -72,9 +72,9 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 <details open>
 <summary> Video </summary>
   
-<!-- We conduct object detection using D-FINE and YOLO11 on a complex street scene video from YouTube. Despite challenging conditions such as backlighting, motion blur, and dense occlusion, D-FINE-X successfully detects nearly all targets, including subtle small objects like backpacks, bicycles, and traffic lights. Its confidence scores and the localization precision for blurred edges are significantly higher than those of YOLO11. -->
+We conduct object detection using D-FINE and YOLO11 on a complex street scene video from [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A). Despite challenging conditions such as backlighting, motion blur, and dense crowds, D-FINE-X successfully detects nearly all targets, including subtle small objects like backpacks, bicycles, and traffic lights. Its confidence scores and the localization precision for blurred edges are significantly higher than those of YOLO11.
 
-We use D-FINE and YOLO11 on a street scene video from [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A). Despite challenges like backlighting, motion blur, and dense crowds, D-FINE-X outperforms YOLO11x, detecting more objects with higher confidence and better precision.
+<!-- We use D-FINE and YOLO11 on a street scene video from [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A). Despite challenges like backlighting, motion blur, and dense crowds, D-FINE-X outperforms YOLO11x, detecting more objects with higher confidence and better precision. -->
 
 https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 

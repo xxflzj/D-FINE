@@ -1,6 +1,6 @@
 <!--# [D-FINE: DETRの回帰タスクを細粒度分布最適化として再定義](https://arxiv.org/abs/xxxxxx) -->
 
-English | [简体中文](README_cn.md) | 日本語 | [English Blog](src/zoo/dfine/blog.md) | [中文博客](src/zoo/dfine/blog_cn.md)
+[English](README.md) | [简体中文](README_cn.md) | 日本語 | [English Blog](src/zoo/dfine/blog.md) | [中文博客](src/zoo/dfine/blog_cn.md)
 
 <h2 align="center">
   D-FINE: DETRの回帰タスクを細粒度分布最適化として再定義

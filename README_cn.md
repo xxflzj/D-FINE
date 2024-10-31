@@ -524,7 +524,7 @@ trtexec --onnx="model.onnx" --saveEngine="model.engine" --fp16
 </details>
 
 <details>
-<summary> 推理 </summary>
+<summary> 推理（可视化） </summary>
 
 
 1. 设置
@@ -536,10 +536,12 @@ export model=l  # s m l x
 
 <!-- <summary>5. Inference </summary> -->
 2. 推理 (onnxruntime / tensorrt / torch)
+
+目前支持对图像和视频的推理。
 ```shell
-python tools/inference/onnx_inf.py --onnx-file model.onnx --im-file image.jpg
-python tools/inference/trt_inf.py --trt-file model.trt --im-file image.jpg
-python tools/inference/torch_inf.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml -r model.pth --im-file image.jpg --device cuda:0
+python tools/inference/onnx_inf.py --onnx model.onnx --input image.jpg  # video.mp4
+python tools/inference/trt_inf.py --trt model.trt --input image.jpg
+python tools/inference/torch_inf.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml -r model.pth --input image.jpg --device cuda:0
 ```
 </details>
 

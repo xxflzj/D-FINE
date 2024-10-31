@@ -1,9 +1,9 @@
-<!--# [D-FINE: DETRの回帰タスクを細粒度分布最適化として再定義](https://arxiv.org/abs/xxxxxx) -->
+<!--# [D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement](https://arxiv.org/abs/xxxxxx) -->
 
 [English](README.md) | [简体中文](README_cn.md) | 日本語 | [English Blog](src/zoo/dfine/blog.md) | [中文博客](src/zoo/dfine/blog_cn.md)
 
 <h2 align="center">
-  D-FINE: DETRの回帰タスクを細粒度分布最適化として再定義
+  D-FINE: Redefine Regression Task of DETRs as Fine&#8209;grained&nbsp;Distribution&nbsp;Refinement
 </h2>
 
 
@@ -34,7 +34,10 @@
 <p align="center">
     📄 これは論文の公式実装です:
     <br>
-    <a href="https://arxiv.org/abs/2410.13842">D-FINE: DETRの回帰タスクを細粒度分布最適化として再定義</a>
+    <a href="https://arxiv.org/abs/2410.13842">D-FINE: Redefine Regression Task of DETRs as Fine-grained Distribution Refinement</a>
+  </p>
+<p align="center">
+  D-FINE: DETRの回帰タスクを細粒度分布最適化として再定義
 </p>
 
 
@@ -662,7 +665,7 @@ python reference/convert_weight.py model.pth
 
 ```latex
 @misc{peng2024dfine,
-      title={D-FINE: DETRの回帰タスクを細粒度分布最適化として再定義}, 
+      title={D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement}, 
       author={Yansong Peng and Hebei Li and Peixi Wu and Yueyi Zhang and Xiaoyan Sun and Feng Wu},
       year={2024},
       eprint={2410.13842},

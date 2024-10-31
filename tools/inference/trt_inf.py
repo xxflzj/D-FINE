@@ -213,7 +213,7 @@ def process_video(m, file_path, device):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('-trt', '--trt-file', type=str, required=True)
+    parser.add_argument('-trt', '--trt', type=str, required=True)
     parser.add_argument('-i', '--input', type=str, required=True)
     parser.add_argument('-d', '--device', type=str, default='cuda:0')
 

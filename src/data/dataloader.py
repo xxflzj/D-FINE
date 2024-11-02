@@ -22,7 +22,7 @@ from ..core import register
 __all__ = [
     'DataLoader',
     'BaseCollateFunction', 
-    'BatchImageCollateFuncion',
+    'BatchImageCollateFunction',
     'batch_image_collate_fn'
 ]
 
@@ -86,7 +86,7 @@ def generate_scales(base_size, base_size_repeat):
 
 
 @register()
-class BatchImageCollateFuncion(BaseCollateFunction):
+class BatchImageCollateFunction(BaseCollateFunction):
     def __init__(
         self, 
         stop_epoch=None, 

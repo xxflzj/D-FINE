@@ -318,7 +318,7 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
       num_workers: 4
       drop_last: True 
       collate_fn:
-        type: BatchImageCollateFuncion
+        type: BatchImageCollateFunction
     
     val_dataloader:
       type: DataLoader
@@ -334,7 +334,7 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
       num_workers: 4
       drop_last: False
       collate_fn:
-        type: BatchImageCollateFuncion
+        type: BatchImageCollateFunction
     ```
 
 </details>

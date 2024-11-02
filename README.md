@@ -315,7 +315,7 @@ To train on your custom dataset, you need to organize it in the COCO format. Fol
       num_workers: 4
       drop_last: True 
       collate_fn:
-        type: BatchImageCollateFuncion
+        type: BatchImageCollateFunction
     
     val_dataloader:
       type: DataLoader
@@ -331,7 +331,7 @@ To train on your custom dataset, you need to organize it in the COCO format. Fol
       num_workers: 4
       drop_last: False
       collate_fn:
-        type: BatchImageCollateFuncion
+        type: BatchImageCollateFunction
     ```
 
 </details>
@@ -379,7 +379,7 @@ export model=l  # s m l x
 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/objects365/dfine_hgnetv2_${model}_obj365.yml --use-amp --seed=0
 ```
 
-3. Turning on COCO2017
+3. Tuning on COCO2017
 ```shell
 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 train.py -c configs/dfine/objects365/dfine_hgnetv2_${model}_obj2coco.yml --use-amp --seed=0 -t model.pth
 ```

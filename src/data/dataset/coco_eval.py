@@ -14,7 +14,7 @@ import torch
 from faster_coco_eval import COCO, COCOeval_faster
 import faster_coco_eval.core.mask as mask_util
 from ...core import register
-
+from ...misc import dist_utils
 __all__ = ['CocoEvaluator',]
 
 
@@ -28,7 +28,7 @@ class CocoEvaluator(object):
 
         self.coco_eval = {}
         for iou_type in iou_types:
-            self.coco_eval[iou_type] = COCOeval_faster(coco_gt, iouType=iou_type, print_function=print)
+            self.coco_eval[iou_type] = COCOeval_faster(coco_gt, iouType=iou_type, print_function=print, separate_eval=True)
 
         self.img_ids = []
         self.eval_imgs = {k: [] for k in iou_types}
@@ -36,7 +36,7 @@ class CocoEvaluator(object):
     def cleanup(self):
         self.coco_eval = {}
         for iou_type in self.iou_types:
-            self.coco_eval[iou_type] = COCOeval_faster(self.coco_gt, iouType=iou_type, print_function=print)
+            self.coco_eval[iou_type] = COCOeval_faster(self.coco_gt, iouType=iou_type, print_function=print, separate_eval=True)
         self.img_ids = []
         self.eval_imgs = {k: [] for k in self.iou_types}
 
@@ -47,26 +47,26 @@ class CocoEvaluator(object):
 
         for iou_type in self.iou_types:
             results = self.prepare(predictions, iou_type)
+            coco_eval = self.coco_eval[iou_type]
 
             # suppress pycocotools prints
             with open(os.devnull, 'w') as devnull:
                 with contextlib.redirect_stdout(devnull):
                     coco_dt = self.coco_gt.loadRes(results) if results else COCO()
-            coco_eval = self.coco_eval[iou_type]
+                    coco_eval.cocoDt = coco_dt
+                    coco_eval.params.imgIds = list(img_ids)
+                    coco_eval.evaluate()
 
-            coco_eval.cocoDt = coco_dt
-            coco_eval.params.imgIds = list(img_ids)
-            coco_eval.evaluate()
-
-            self.eval_imgs[iou_type].append(coco_eval._evalImgs_cpp)
+            self.eval_imgs[iou_type].append(np.array(coco_eval._evalImgs_cpp).reshape(len(coco_eval.params.catIds), len(coco_eval.params.areaRng), len(coco_eval.params.imgIds)))
 
     def synchronize_between_processes(self):
         for iou_type in self.iou_types:
-            self.eval_imgs[iou_type] = np.array(self.eval_imgs[iou_type]).T.ravel().tolist()
+            img_ids, eval_imgs = merge(self.img_ids, self.eval_imgs[iou_type])
 
             coco_eval = self.coco_eval[iou_type]
-            coco_eval.params.imgIds = list(set(self.img_ids))
+            coco_eval.params.imgIds = img_ids
             coco_eval._paramsEval = copy.deepcopy(coco_eval.params)
+            coco_eval._evalImgs_cpp = eval_imgs
 
     def accumulate(self):
         for coco_eval in self.coco_eval.values():
@@ -176,3 +176,25 @@ class CocoEvaluator(object):
 def convert_to_xywh(boxes):
     xmin, ymin, xmax, ymax = boxes.unbind(1)
     return torch.stack((xmin, ymin, xmax - xmin, ymax - ymin), dim=1)
+
+def merge(img_ids, eval_imgs):
+    all_img_ids = dist_utils.all_gather(img_ids)
+    all_eval_imgs = dist_utils.all_gather(eval_imgs)
+
+    merged_img_ids = []
+    for p in all_img_ids:
+        merged_img_ids.extend(p)
+
+    merged_eval_imgs = []
+    for p in all_eval_imgs:
+        merged_eval_imgs.extend(p)
+
+
+    merged_img_ids = np.array(merged_img_ids)
+    merged_eval_imgs = np.concatenate(merged_eval_imgs, axis=2).ravel()
+    # merged_eval_imgs = np.array(merged_eval_imgs).T.ravel()
+
+    # keep only unique (and in sorted order) images
+    merged_img_ids, idx = np.unique(merged_img_ids, return_index=True)
+
+    return merged_img_ids.tolist(), merged_eval_imgs.tolist()

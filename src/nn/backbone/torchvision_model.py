@@ -36,16 +36,14 @@ class TorchVisionModel(torch.nn.Module):
 # TorchVisionModel('swin_t', return_layers=['5', '7'])
 # TorchVisionModel('resnet34', return_layers=['layer2','layer3', 'layer4'])
 
-"""
-TorchVisionModel:
-    name: swin_t
-    return_layers: ['5', '7']
-    weights: DEFAULT
+# TorchVisionModel:
+#     name: swin_t
+#     return_layers: ['5', '7']
+#     weights: DEFAULT
 
 
-model:
-    type: TorchVisionModel
-    name: resnet34
-    return_layers: ['layer2','layer3', 'layer4']
-    weights: DEFAULT
-"""
+# model:
+#     type: TorchVisionModel
+#     name: resnet34
+#     return_layers: ['layer2','layer3', 'layer4']
+#     weights: DEFAULT

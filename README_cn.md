@@ -22,8 +22,11 @@
     <a href="https://arxiv.org/abs/2410.13842">
         <img alt="arXiv" src="https://img.shields.io/badge/arXiv-2410.13842-red">
     </a>
-    <a href="mailto: pengyansong@mail.ustc.edu.cn">
+<!--     <a href="mailto: pengyansong@mail.ustc.edu.cn">
         <img alt="email" src="https://img.shields.io/badge/contact_me-email-yellow">
+    </a> -->
+      <a href="https://results.pre-commit.ci/latest/github/Peterande/D-FINE/master">
+        <img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/Peterande/D-FINE/master.svg">
     </a>
     <a href="https://github.com/Peterande/D-FINE">
         <img alt="stars" src="https://img.shields.io/github/stars/Peterande/D-FINE">

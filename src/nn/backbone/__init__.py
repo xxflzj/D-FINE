@@ -4,7 +4,7 @@ Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
 from .common import (
-    get_activation, 
+    get_activation,
     FrozenBatchNorm2d,
     freeze_batch_norm2d,
 )

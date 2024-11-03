@@ -10,7 +10,7 @@ from enum import Enum
 
 
 class BoxProcessFormat(Enum):
-    """Box process format 
+    """Box process format
 
     Available formats are
     * ``RESIZE``
@@ -23,13 +23,13 @@ class BoxProcessFormat(Enum):
 
 
 def box_revert(
-    boxes: Tensor, 
-    orig_sizes: Tensor=None, 
+    boxes: Tensor,
+    orig_sizes: Tensor=None,
     eval_sizes: Tensor=None,
     inpt_sizes: Tensor=None,
     inpt_padding: Tensor=None,
     normalized: bool=True,
-    in_fmt: str='cxcywh', 
+    in_fmt: str='cxcywh',
     out_fmt: str='xyxy',
     process_fmt=BoxProcessFormat.RESIZE,
 ) -> Tensor:
@@ -45,7 +45,7 @@ def box_revert(
 
     if normalized and eval_sizes is not None:
         boxes = boxes * eval_sizes.repeat(1, 2).unsqueeze(1)
-    
+
     if inpt_padding is not None:
         if in_fmt == 'xyxy':
             boxes -= inpt_padding[:, :2].repeat(1, 2).unsqueeze(1)

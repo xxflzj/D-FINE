@@ -1,11 +1,11 @@
-import time 
+import time
 import contextlib
 import numpy as np
 from PIL import Image
 from collections import OrderedDict
 
 import onnx
-import torch 
+import torch
 import onnx_graphsurgeon
 
 
@@ -47,33 +47,33 @@ def yolo_insert_nms(path, score_threshold=0.01, iou_threshold=0.7, max_output_bo
                onnx_graphsurgeon.Variable('det_scores', np.float32, [-1, topk]),
                onnx_graphsurgeon.Variable('det_classes', np.int32, [-1, topk])]
 
-    graph.layer(op='EfficientNMS_TRT', 
-                name="batched_nms", 
-                inputs=[graph.outputs[0], 
-                        graph.outputs[1]], 
-                outputs=outputs, 
+    graph.layer(op='EfficientNMS_TRT',
+                name="batched_nms",
+                inputs=[graph.outputs[0],
+                        graph.outputs[1]],
+                outputs=outputs,
                 attrs=attrs, )
 
     graph.outputs = outputs
     graph.cleanup().toposort()
 
-    onnx.save(onnx_graphsurgeon.export_onnx(graph), f'yolo_w_nms.onnx')
+    onnx.save(onnx_graphsurgeon.export_onnx(graph), 'yolo_w_nms.onnx')
 
 
 class TimeProfiler(contextlib.ContextDecorator):
     def __init__(self, ):
         self.total = 0
-        
+
     def __enter__(self, ):
         self.start = self.time()
-        return self 
-    
+        return self
+
     def __exit__(self, type, value, traceback):
         self.total += self.time() - self.start
-    
+
     def reset(self, ):
         self.total = 0
-    
+
     def time(self, ):
         if torch.cuda.is_available():
             torch.cuda.synchronize()

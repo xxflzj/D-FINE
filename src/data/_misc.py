@@ -4,7 +4,7 @@ Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
 import importlib.metadata
-from torch import Tensor 
+from torch import Tensor
 
 if '0.15.2' in importlib.metadata.version('torchvision'):
     import torchvision
@@ -46,7 +46,7 @@ def convert_to_tv_tensor(tensor: Tensor, key: str, box_format='xyxy', spatial_si
         Dict[str, TV_Tensor]
     """
     assert key in ('boxes', 'masks', ), "Only support 'boxes' and 'masks'"
-    
+
     if key == 'boxes':
         box_format = getattr(BoundingBoxFormat, box_format.upper())
         _kwargs = dict(zip(_boxes_keys, [box_format, spatial_size]))
@@ -54,4 +54,3 @@ def convert_to_tv_tensor(tensor: Tensor, key: str, box_format='xyxy', spatial_si
 
     if key == 'masks':
        return Mask(tensor)
-

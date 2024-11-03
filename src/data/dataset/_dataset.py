@@ -3,7 +3,7 @@ Copied from RT-DETR (https://github.com/lyuwenyu/RT-DETR)
 Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
-import torch 
+import torch
 import torch.utils.data as data
 
 class DetDataset(data.Dataset):
@@ -17,7 +17,7 @@ class DetDataset(data.Dataset):
         raise NotImplementedError("Please implement this function to return item before `transforms`.")
 
     def set_epoch(self, epoch) -> None:
-        self._epoch = epoch 
+        self._epoch = epoch
 
     @property
     def epoch(self):

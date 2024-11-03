@@ -12,10 +12,10 @@ from ...core import register
 @register()
 class TimmModel(torch.nn.Module):
     def __init__(self, \
-        name, 
-        return_layers, 
-        pretrained=False, 
-        exportable=True, 
+        name,
+        return_layers,
+        pretrained=False,
+        exportable=True,
         features_only=True,
         **kwargs) -> None:
 
@@ -24,8 +24,8 @@ class TimmModel(torch.nn.Module):
         import timm
         model = timm.create_model(
             name,
-            pretrained=pretrained, 
-            exportable=exportable, 
+            pretrained=pretrained,
+            exportable=exportable,
             features_only=features_only,
             **kwargs
         )
@@ -36,7 +36,7 @@ class TimmModel(torch.nn.Module):
 
         assert set(return_layers).issubset(model.feature_info.module_name()), \
             f'return_layers should be a subset of {model.feature_info.module_name()}'
-        
+
         # self.model = model
         self.model = IntermediateLayerGetter(model, return_layers)
 
@@ -46,18 +46,18 @@ class TimmModel(torch.nn.Module):
         self.return_idx = return_idx
         self.return_layers = return_layers
 
-    def forward(self, x: torch.Tensor): 
+    def forward(self, x: torch.Tensor):
         outputs = self.model(x)
         # outputs = [outputs[i] for i in self.return_idx]
         return outputs
 
 
 if __name__ == '__main__':
-    
+
     model = TimmModel(name='resnet34', return_layers=['layer2', 'layer3'])
     data = torch.rand(1, 3, 640, 640)
     outputs = model(data)
-    
+
     for output in outputs:
         print(output.shape)
 

@@ -10,8 +10,8 @@ from PIL import Image
 import torch
 import torch.utils.data as data
 import torchvision
-import torchvision.transforms as T 
-import torchvision.transforms.functional as F 
+import torchvision.transforms as T
+import torchvision.transforms.functional as F
 
 
 class ToTensor(T.ToTensor):
@@ -20,7 +20,7 @@ class ToTensor(T.ToTensor):
 
     def __call__(self, pic):
         if isinstance(pic, torch.Tensor):
-            return pic 
+            return pic
         return super().__call__(pic)
 
 class PadToSize(T.Pad):
@@ -51,7 +51,7 @@ class Dataset(data.Dataset):
 
         self.im_path_list = list(glob.glob(os.path.join(img_dir, '*.jpg')))
 
-        if preprocess is None: 
+        if preprocess is None:
             self.preprocess = T.Compose([
                     T.Resize(size=639, max_size=640),
                     PadToSize(size=(640, 640), fill=114),
@@ -73,7 +73,7 @@ class Dataset(data.Dataset):
         im = self.preprocess(im)
 
         blob = {
-            'images': im, 
+            'images': im,
             'im_shape': torch.tensor([self.size, self.size]).to(im.device),
             'scale_factor': torch.tensor([self.size / h, self.size / w]).to(im.device),
             'orig_target_sizes': torch.tensor([w, h]).to(im.device),
@@ -94,11 +94,11 @@ def draw_nms_result(blob, outputs, draw_score_threshold=0.25, name=''):
     '''show result
     Keys:
         'num_dets', 'det_boxes', 'det_scores', 'det_classes'
-    '''    
+    '''
     for i in range(blob['image'].shape[0]):
         det_scores = outputs['det_scores'][i]
         det_boxes = outputs['det_boxes'][i][det_scores > draw_score_threshold]
-        
+
         im = (blob['image'][i] * 255).to(torch.uint8)
         im = torchvision.utils.draw_bounding_boxes(im, boxes=det_boxes, width=2)
         Image.fromarray(im.permute(1, 2, 0).cpu().numpy()).save(f'test_{name}_{i}.jpg')

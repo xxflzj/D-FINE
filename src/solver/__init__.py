@@ -9,7 +9,7 @@ from .det_solver import DetSolver
 
 
 
-from typing import Dict 
+from typing import Dict
 
 TASKS :Dict[str, BaseSolver] = {
     'classification': ClasSolver,

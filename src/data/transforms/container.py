@@ -3,17 +3,17 @@ Copied from RT-DETR (https://github.com/lyuwenyu/RT-DETR)
 Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
-import torch 
-import torch.nn as nn 
+import torch
+import torch.nn as nn
 
 import torchvision
-torchvision.disable_beta_transforms_warning()
 import torchvision.transforms.v2 as T
 
 from typing import Any, Dict, List, Optional
 
 from ._transforms import EmptyTransform
 from ...core import register, GLOBAL_CONFIG
+torchvision.disable_beta_transforms_warning()
 
 
 @register()
@@ -35,7 +35,7 @@ class Compose(T.Compose):
                     raise ValueError('')
         else:
             transforms =[EmptyTransform(), ]
- 
+
         super().__init__(transforms=transforms)
 
         if policy is None:
@@ -80,7 +80,7 @@ class Compose(T.Compose):
     def stop_sample_forward(self, *inputs: Any):
         sample = inputs if len(inputs) > 1 else inputs[0]
         dataset = sample[-1]
-        
+
         cur_epoch = dataset.epoch
         policy_ops = self.policy['ops']
         policy_sample = self.policy['sample']

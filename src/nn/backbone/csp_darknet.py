@@ -3,9 +3,9 @@ Copied from RT-DETR (https://github.com/lyuwenyu/RT-DETR)
 Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
-import torch 
-import torch.nn as nn 
-import torch.nn.functional as F 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
 import math
 import warnings
@@ -14,14 +14,14 @@ from .common import get_activation
 from ...core import register
 
 
-def autopad(k, p=None): 
+def autopad(k, p=None):
     if p is None:
-        p = k // 2 if isinstance(k, int) else [x // 2 for x in k] 
+        p = k // 2 if isinstance(k, int) else [x // 2 for x in k]
     return p
 
 def make_divisible(c, d):
     return math.ceil(c / d) * d
-    
+
 
 class Conv(nn.Module):
     def __init__(self, cin, cout, k=1, s=1, p=None, g=1, act='silu') -> None:
@@ -118,7 +118,7 @@ class CSPDarkNet(nn.Module):
 class CSPPAN(nn.Module):
     """
     P5 ---> 1x1  ---------------------------------> concat --> c3 --> det
-             | up                                     | conv /2 
+             | up                                     | conv /2
     P4 ---> concat ---> c3 ---> 1x1  -->  concat ---> c3 -----------> det
                                  | up       | conv /2
     P3 -----------------------> concat ---> c3 ---------------------> det

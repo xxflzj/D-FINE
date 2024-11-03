@@ -21,15 +21,15 @@ class YOLO(torch.nn.Module):
         self.neck = neck
         self.head = head
 
-    def forward(self, x, **kwargs):           
+    def forward(self, x, **kwargs):
         x = self.backbone(x)
-        x = self.neck(x)        
+        x = self.neck(x)
         x = self.head(x)
         return x
-    
+
     def deploy(self, ):
         self.eval()
         for m in self.modules():
             if m is not self and hasattr(m, 'deploy'):
                 m.deploy()
-        return self 
+        return self

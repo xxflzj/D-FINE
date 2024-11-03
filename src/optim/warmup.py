@@ -32,10 +32,10 @@ class Warmup(object):
         factor = self.get_warmup_factor(self.last_step)
         for i, pg in enumerate(self.lr_scheduler.optimizer.param_groups):
             pg['lr'] = factor * self.warmup_end_values[i]
-    
+
     def finished(self, ):
         if self.last_step >= self.warmup_duration:
-            return True 
+            return True
         return False
 
 
@@ -46,4 +46,3 @@ class LinearWarmup(Warmup):
 
     def get_warmup_factor(self, step):
         return min(1.0, (step + 1) / self.warmup_duration)
-

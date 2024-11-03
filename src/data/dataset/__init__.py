@@ -7,8 +7,7 @@ Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 from .cifar_dataset import CIFAR10
 from .coco_dataset import CocoDetection
 from .coco_dataset import (
-    CocoDetection, 
-    mscoco_category2name, 
+    mscoco_category2name,
     mscoco_category2label,
     mscoco_label2category,
 )

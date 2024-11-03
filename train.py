@@ -6,8 +6,8 @@ Modified from RT-DETR (https://github.com/lyuwenyu/RT-DETR)
 Copyright (c) 2023 lyuwenyu. All Rights Reserved.
 """
 
-import os 
-import sys 
+import os
+import sys
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 
 import argparse
@@ -33,13 +33,13 @@ def main(args, ) -> None:
     assert not all([args.tuning, args.resume]), \
         'Only support from_scrach or resume or tuning at one time'
 
-        
+
     update_dict = yaml_utils.parse_cli(args.update)
     update_dict.update({k: v for k, v in args.__dict__.items() \
         if k not in ['update', ] and v is not None})
 
     cfg = YAMLConfig(args.config, **update_dict)
-    
+
     if args.resume or args.tuning:
         if 'HGNetv2' in cfg.yaml_cfg:
             cfg.yaml_cfg['HGNetv2']['pretrained'] = False
@@ -47,19 +47,19 @@ def main(args, ) -> None:
     print('cfg: ', cfg.__dict__)
 
     solver = TASKS[cfg.yaml_cfg['task']](cfg)
-    
+
     if args.test_only:
         solver.val()
     else:
         solver.fit()
 
     dist_utils.cleanup()
-    
+
 
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    
+
     # priority 0
     parser.add_argument('-c', '--config', type=str, required=True)
     parser.add_argument('-r', '--resume', type=str, help='resume from checkpoint')

@@ -3,12 +3,12 @@ Copied from RT-DETR (https://github.com/lyuwenyu/RT-DETR)
 Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
-import torch 
+import torch
 import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 
-import re 
+import re
 import copy
 
 from ._config import BaseConfig
@@ -22,8 +22,8 @@ class YAMLConfig(BaseConfig):
         cfg = load_config(cfg_path)
         cfg = merge_dict(cfg, kwargs)
 
-        self.yaml_cfg = copy.deepcopy(cfg) 
-        
+        self.yaml_cfg = copy.deepcopy(cfg)
+
         for k in super().__dict__:
             if not k.startswith('_') and k in cfg:
                 self.__dict__[k] = cfg[k]
@@ -31,12 +31,12 @@ class YAMLConfig(BaseConfig):
     @property
     def global_cfg(self, ):
         return merge_config(self.yaml_cfg, inplace=False, overwrite=False)
-    
+
     @property
     def model(self, ) -> torch.nn.Module:
         if self._model is None and 'model' in self.yaml_cfg:
             self._model = create(self.yaml_cfg['model'], self.global_cfg)
-        return super().model 
+        return super().model
 
     @property
     def postprocessor(self, ) -> torch.nn.Module:
@@ -49,21 +49,21 @@ class YAMLConfig(BaseConfig):
         if self._criterion is None and 'criterion' in self.yaml_cfg:
             self._criterion = create(self.yaml_cfg['criterion'], self.global_cfg)
         return super().criterion
-    
+
     @property
     def optimizer(self, ) -> optim.Optimizer:
         if self._optimizer is None and 'optimizer' in self.yaml_cfg:
             params = self.get_optim_params(self.yaml_cfg['optimizer'], self.model)
             self._optimizer = create('optimizer', self.global_cfg, params=params)
         return super().optimizer
-    
+
     @property
     def lr_scheduler(self, ) -> optim.lr_scheduler.LRScheduler:
         if self._lr_scheduler is None and 'lr_scheduler' in self.yaml_cfg:
             self._lr_scheduler = create('lr_scheduler', self.global_cfg, optimizer=self.optimizer)
             print(f'Initial lr: {self._lr_scheduler.get_last_lr()}')
         return super().lr_scheduler
-    
+
     @property
     def lr_warmup_scheduler(self, ) -> optim.lr_scheduler.LRScheduler:
         if self._lr_warmup_scheduler is None and 'lr_warmup_scheduler' in self.yaml_cfg :
@@ -81,13 +81,13 @@ class YAMLConfig(BaseConfig):
         if self._val_dataloader is None and 'val_dataloader' in self.yaml_cfg:
             self._val_dataloader = self.build_dataloader('val_dataloader')
         return super().val_dataloader
-    
+
     @property
     def ema(self, ) -> torch.nn.Module:
         if self._ema is None and self.yaml_cfg.get('use_ema', False):
             self._ema = create('ema', self.global_cfg, model=self.model)
         return super().ema
-    
+
     @property
     def scaler(self, ):
         if self._scaler is None and self.yaml_cfg.get('use_amp', False):
@@ -99,7 +99,7 @@ class YAMLConfig(BaseConfig):
         if self._evaluator is None and 'evaluator' in self.yaml_cfg:
             if self.yaml_cfg['evaluator']['type'] == 'CocoEvaluator':
                 from ..data import get_coco_api_from_dataset
-                base_ds = get_coco_api_from_dataset(self.val_dataloader.dataset)                
+                base_ds = get_coco_api_from_dataset(self.val_dataloader.dataset)
                 self._evaluator = create('evaluator', self.global_cfg, coco_gt=base_ds)
             else:
                 raise NotImplementedError(f"{self.yaml_cfg['evaluator']['type']}")
@@ -117,7 +117,7 @@ class YAMLConfig(BaseConfig):
         cfg = copy.deepcopy(cfg)
 
         if 'params' not in cfg:
-            return model.parameters() 
+            return model.parameters()
 
         assert isinstance(cfg['params'], list), ''
 
@@ -160,7 +160,7 @@ class YAMLConfig(BaseConfig):
             assert total_batch_size % dist_utils.get_world_size() == 0, \
                 'total_batch_size should be divisible by world size'
             bs = total_batch_size // dist_utils.get_world_size()
-        return bs 
+        return bs
 
     def build_dataloader(self, name: str):
         bs = self.get_rank_batch_size(self.yaml_cfg[name])
@@ -170,5 +170,5 @@ class YAMLConfig(BaseConfig):
             _ = global_cfg[name].pop('total_batch_size')
         print(f'building {name} with batch_size={bs}...')
         loader = create(name, global_cfg, batch_size=bs)
-        loader.shuffle = self.yaml_cfg[name].get('shuffle', False)      
+        loader.shuffle = self.yaml_cfg[name].get('shuffle', False)
         return loader

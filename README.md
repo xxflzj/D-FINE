@@ -71,7 +71,7 @@ D-FINE is a powerful real-time object detector that redefines the bounding box r
 
 <details open>
 <summary> Video </summary>
-  
+
 We conduct object detection using D-FINE and YOLO11 on a complex street scene video from [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A). Despite challenging conditions such as backlighting, motion blur, and dense crowds, D-FINE-X successfully detects nearly all targets, including subtle small objects like backpacks, bicycles, and traffic lights. Its confidence scores and the localization precision for blurred edges are significantly higher than those of YOLO11.
 
 <!-- We use D-FINE and YOLO11 on a street scene video from [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A). Despite challenges like backlighting, motion blur, and dense crowds, D-FINE-X outperforms YOLO11x, detecting more objects with higher confidence and better precision. -->
@@ -142,24 +142,24 @@ pip install -r requirements.txt
 <details>
 <summary> COCO2017 Dataset </summary>
 
-1. Download COCO2017 from [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017) or [COCO](https://cocodataset.org/#download). 
+1. Download COCO2017 from [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017) or [COCO](https://cocodataset.org/#download).
 1. Modify paths in [coco_detection.yml](./configs/dataset/coco_detection.yml)
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         img_folder: /data/COCO2017/train2017/
         ann_file: /data/COCO2017/annotations/instances_train2017.json
     val_dataloader:
         img_folder: /data/COCO2017/val2017/
         ann_file: /data/COCO2017/annotations/instances_val2017.json
     ```
-      
+
 </details>
 
 <details>
 <summary> Objects365 Dataset </summary>
 
-1. Download Objects365 from [OpenDataLab](https://opendatalab.com/OpenDataLab/Objects365). 
+1. Download Objects365 from [OpenDataLab](https://opendatalab.com/OpenDataLab/Objects365).
 
 2. Set the Base Directory:
 ```shell
@@ -223,7 +223,7 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 8. Modify paths in [obj365_detection.yml](./configs/dataset/obj365_detection.yml)
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         img_folder: /data/Objects365/data/train
         ann_file: /data/Objects365/data/train/new_zhiyuan_objv2_train_resized.json
     val_dataloader:
@@ -293,17 +293,17 @@ To train on your custom dataset, you need to organize it in the COCO format. Fol
 
     ```yaml
     task: detection
-    
+
     evaluator:
       type: CocoEvaluator
       iou_types: ['bbox', ]
 
     num_classes: 777 # your dataset classes
     remap_mscoco_category: False
-    
-    train_dataloader: 
+
+    train_dataloader:
       type: DataLoader
-      dataset: 
+      dataset:
         type: CocoDetection
         img_folder: /data/yourdataset/train
         ann_file: /data/yourdataset/train/train.json
@@ -313,20 +313,20 @@ To train on your custom dataset, you need to organize it in the COCO format. Fol
           ops: ~
       shuffle: True
       num_workers: 4
-      drop_last: True 
+      drop_last: True
       collate_fn:
         type: BatchImageCollateFunction
-    
+
     val_dataloader:
       type: DataLoader
-      dataset: 
+      dataset:
         type: CocoDetection
         img_folder: /data/yourdataset/val
         ann_file: /data/yourdataset/val/ann.json
         return_masks: False
         transforms:
           type: Compose
-          ops: ~ 
+          ops: ~
       shuffle: False
       num_workers: 4
       drop_last: False
@@ -416,14 +416,14 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 ```
 
 5. **[Optional]** Modify Class Mappings:
-   
+
 When using the Objects365 pre-trained weights to train on your custom dataset, the example assumes that your dataset only contains the classes `'Person'` and `'Car'`. For faster convergence, you can modify `self.obj365_ids` in `src/solver/_solver.py` as follows:
 
 
 ```python
 self.obj365_ids = [0, 5]  # Person, Cars
 ```
-You can replace these with any corresponding classes from your dataset. The list of Objects365 classes with their corresponding IDs: 
+You can replace these with any corresponding classes from your dataset. The list of Objects365 classes with their corresponding IDs:
 https://github.com/Peterande/D-FINE/blob/352a94ece291e26e1957df81277bef00fe88a8e3/src/solver/_solver.py#L330
 
 New training command:
@@ -446,7 +446,7 @@ For example, if you want to double the total batch size when training D-FINE-L o
 1. **Modify your [dataloader.yml](./configs/dfine/include/dataloader.yml)** to increase the `total_batch_size`:
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         total_batch_size: 64  # Previously it was 32, now doubled
     ```
 
@@ -455,11 +455,11 @@ For example, if you want to double the total batch size when training D-FINE-L o
     ```yaml
     optimizer:
     type: AdamW
-    params: 
-        - 
+    params:
+        -
         params: '^(?=.*backbone)(?!.*norm|bn).*$'
         lr: 0.000025  # doubled, linear scaling law
-        - 
+        -
         params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn)).*$'
         weight_decay: 0.
 
@@ -487,17 +487,17 @@ If you'd like to train **D-FINE-L** on COCO2017 with an input size of 320x320, f
 
     ```yaml
 
-    train_dataloader: 
-    dataset: 
+    train_dataloader:
+    dataset:
         transforms:
             ops:
                 - {type: Resize, size: [320, 320], }
     collate_fn:
         base_size: 320
-    dataset: 
+    dataset:
         transforms:
-            ops: 
-                - {type: Resize, size: [320, 320], } 
+            ops:
+                - {type: Resize, size: [320, 320], }
     ```
 
 2. **Modify your [dfine_hgnetv2.yml](./configs/dfine/include/dfine_hgnetv2.yml)**:
@@ -544,7 +544,7 @@ export model=l  # s m l x
 
 <!-- <summary>5. Inference </summary> -->
 2. Inference (onnxruntime / tensorrt / torch)
-   
+
 Inference on images and videos is now supported.
 ```shell
 python tools/inference/onnx_inf.py --onnx model.onnx --input image.jpg  # video.mp4
@@ -665,7 +665,7 @@ If you use `D-FINE` or its methods in your work, please cite the following BibTe
 
 ```latex
 @misc{peng2024dfine,
-      title={D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement}, 
+      title={D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement},
       author={Yansong Peng and Hebei Li and Peixi Wu and Yueyi Zhang and Xiaoyan Sun and Feng Wu},
       year={2024},
       eprint={2410.13842},

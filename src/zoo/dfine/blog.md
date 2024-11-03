@@ -69,9 +69,9 @@ The following visualization showcases **D-FINE**'s predictions in various comple
 
 Additionally, the visualization below shows the prediction results of the first layer and the last layer, the corresponding distributions of the four edges, and the weighted distributions. It can be seen that the localization of the predicted boxes becomes more precise as the distributions are optimized.
 
-<p align="center"> 
-    <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000"> 
-</p> 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000">
+</p>
 
 ---
 

@@ -5,7 +5,7 @@ Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 
 import torch
 import torchvision
-from torch import Tensor 
+from torch import Tensor
 from typing import List, Tuple
 
 
@@ -66,10 +66,10 @@ def check_point_inside_box(points: Tensor, boxes: Tensor, eps=1e-9) -> Tensor:
     x1, y1, x2, y2 = [x.unsqueeze(0) for x in boxes.unbind(-1)]
 
     l = x - x1
-    t = y - y1 
+    t = y - y1
     r = x2 - x
     b = y2 - y
-    
+
     ltrb = torch.stack([l, t, r, b], dim=-1)
     mask = ltrb.min(dim=-1).values > eps
 

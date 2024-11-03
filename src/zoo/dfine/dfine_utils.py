@@ -12,10 +12,10 @@ def weighting_function(reg_max, up, reg_scale, deploy=False):
 
     Args:
         reg_max (int): Max number of the discrete bins.
-        up (Tensor): Controls upper bounds of the sequence, 
+        up (Tensor): Controls upper bounds of the sequence,
                      where maximum offset is ±up * H / W.
         reg_scale (float): Controls the curvature of the Weighting Function.
-                           Larger values result in flatter weights near the central axis W(reg_max/2)=0 
+                           Larger values result in flatter weights near the central axis W(reg_max/2)=0
                            and steeper weights at both ends.
         deploy (bool): If True, uses deployment mode settings.
 
@@ -37,8 +37,8 @@ def weighting_function(reg_max, up, reg_scale, deploy=False):
         left_values = [-(step) ** i + 1 for i in range(reg_max // 2 - 1, 0, -1)]
         right_values = [(step) ** i - 1 for i in range(1, reg_max // 2)]
         values = [-upper_bound2] + left_values + [torch.zeros_like(up[0][None])] + right_values + [upper_bound2]
-        return torch.cat(values, 0) 
-    
+        return torch.cat(values, 0)
+
 
 def translate_gt(gt, reg_max, reg_scale, up):
     """
@@ -52,7 +52,7 @@ def translate_gt(gt, reg_max, reg_scale, up):
     Args:
         gt (Tensor): Ground truth bounding box values, shape (N, ).
         reg_max (int): Maximum number of discrete bins for the distribution.
-        reg_scale (float): Controls the curvature of the Weighting Function. 
+        reg_scale (float): Controls the curvature of the Weighting Function.
         up (Tensor): Controls the upper bounds of the Weighting Function.
 
     Returns:
@@ -94,7 +94,7 @@ def translate_gt(gt, reg_max, reg_scale, up):
     weight_right[invalid_idx_mask_neg] = 0.0
     weight_left[invalid_idx_mask_neg] = 1.0
     indices[invalid_idx_mask_neg] = 0.0
-    
+
     invalid_idx_mask_pos = (indices >= reg_max)
     weight_right[invalid_idx_mask_pos] = 1.0
     weight_left[invalid_idx_mask_pos] = 0.0
@@ -108,9 +108,9 @@ def distance2bbox(points, distance, reg_scale):
     Decodes edge-distances into bounding box coordinates.
 
     Args:
-        points (Tensor): (B, N, 4) or (N, 4) format, representing [x, y, w, h], 
+        points (Tensor): (B, N, 4) or (N, 4) format, representing [x, y, w, h],
                          where (x, y) is the center and (w, h) are width and height.
-        distance (Tensor): (B, N, 4) or (N, 4), representing distances from the 
+        distance (Tensor): (B, N, 4) or (N, 4), representing distances from the
                            point to the left, top, right, and bottom boundaries.
 
         reg_scale (float): Controls the curvature of the Weighting Function.
@@ -125,7 +125,7 @@ def distance2bbox(points, distance, reg_scale):
     y2 = points[..., 1] + (0.5 * reg_scale + distance[..., 3]) * (points[..., 3] / reg_scale)
 
     bboxes = torch.stack([x1, y1, x2, y2], -1)
-        
+
     return box_xyxy_to_cxcywh(bboxes)
 
 

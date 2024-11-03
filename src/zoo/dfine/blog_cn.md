@@ -69,9 +69,9 @@
 
 同时下面给出的可视化结果展示了第一层和最后一层的预测结果、对应四条边的分布、以及加权后的分布。可以看到，预测框的定位会随着分布的优化而变得更加精准。
 
-<p align="center"> 
-    <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000"> 
-</p> 
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000">
+</p>
 
 ---
 

@@ -5,7 +5,7 @@ import argparse
 def save_only_ema_weights(checkpoint_file):
     """Extract and save only the EMA weights."""
     checkpoint = torch.load(checkpoint_file, map_location='cpu')
-    
+
     weights = {}
     if 'ema' in checkpoint:
         weights['model'] = checkpoint['ema']['module']
@@ -22,6 +22,6 @@ def save_only_ema_weights(checkpoint_file):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Extract and save only EMA weights.")
     parser.add_argument('checkpoint_file', type=str, help="Path to the input checkpoint file.")
-    
+
     args = parser.parse_args()
     save_only_ema_weights(args.checkpoint_file)

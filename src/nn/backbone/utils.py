@@ -8,7 +8,7 @@ from collections import OrderedDict
 from typing import Dict, List
 
 
-import torch.nn as nn 
+import torch.nn as nn
 
 
 class IntermediateLayerGetter(nn.ModuleDict):
@@ -50,6 +50,5 @@ class IntermediateLayerGetter(nn.ModuleDict):
             x = module(x)
             if name in self.return_layers:
                 outputs.append(x)
-        
-        return outputs
 
+        return outputs

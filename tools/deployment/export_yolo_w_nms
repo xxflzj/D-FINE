@@ -1,8 +1,8 @@
-import torch 
+import torch
 import torchvision
 
-import numpy as np 
-import onnxruntime as ort 
+import numpy as np
+import onnxruntime as ort
 
 from utils import yolo_insert_nms
 
@@ -12,7 +12,7 @@ class YOLO11(torch.nn.Module):
         from ultralytics import YOLO
         # Load a model
         # build a new model from scratch
-        # model = YOLO(f'{name}.yaml')  
+        # model = YOLO(f'{name}.yaml')
 
         # load a pretrained model (recommended for training)
         model = YOLO("yolo11n.pt")
@@ -39,17 +39,17 @@ def export_onnx(name='yolov8n'):
     dynamic_axes = {
         'image': {0: '-1'}
     }
-    torch.onnx.export(m, x, f'{name}.onnx', 
-                      input_names=['image'], 
-                      output_names=['boxes', 'scores'], 
-                      opset_version=13, 
+    torch.onnx.export(m, x, f'{name}.onnx',
+                      input_names=['image'],
+                      output_names=['boxes', 'scores'],
+                      opset_version=13,
                       dynamic_axes=dynamic_axes)
 
     data = np.random.rand(1, 3, 640, 640).astype(np.float32)
     sess = ort.InferenceSession(f'{name}.onnx')
     _ = sess.run(output_names=None, input_feed={'image': data})
-    
-    import onnx 
+
+    import onnx
     import onnxslim
     model_onnx = onnx.load(f'{name}.onnx')
     model_onnx = onnxslim.slim(model_onnx)
@@ -67,8 +67,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     export_onnx(name=args.name)
-    
-    yolo_insert_nms(path=f'{args.name}.onnx', 
-                    score_threshold=args.score_threshold, 
-                    iou_threshold=args.iou_threshold, 
+
+    yolo_insert_nms(path=f'{args.name}.onnx',
+                    score_threshold=args.score_threshold,
+                    iou_threshold=args.iou_threshold,
                     max_output_boxes=args.max_output_boxes, )

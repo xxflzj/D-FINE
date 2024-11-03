@@ -137,7 +137,7 @@ def convert_to_coco_api(ds):
 
         img, targets = ds.load_item(img_idx)
         width, height = img.size
-        
+
         image_id = targets["image_id"].item()
         img_dict = {}
         img_dict["id"] = image_id
@@ -190,5 +190,3 @@ def get_coco_api_from_dataset(dataset):
     if isinstance(dataset, torchvision.datasets.CocoDetection):
         return dataset.coco
     return convert_to_coco_api(dataset)
-
-

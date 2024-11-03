@@ -113,7 +113,7 @@ def resize(image, target, size, max_size=None):
         else:
             oh = size
             ow = int(size * w / h)
-            
+
         # r = min(size / min(h, w), max_size / max(h, w))
         # ow = int(w * r)
         # oh = int(h * r)

@@ -3,13 +3,12 @@ Copied from RT-DETR (https://github.com/lyuwenyu/RT-DETR)
 Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
-import torch 
+import torch
 import torch.utils.data as data
 import torch.nn.functional as F
 from torch.utils.data import default_collate
 
 import torchvision
-torchvision.disable_beta_transforms_warning()
 import torchvision.transforms.v2 as VT
 from torchvision.transforms.v2 import functional as VF, InterpolationMode
 
@@ -17,11 +16,12 @@ import random
 from functools import partial
 
 from ..core import register
+torchvision.disable_beta_transforms_warning()
 
 
 __all__ = [
     'DataLoader',
-    'BaseCollateFunction', 
+    'BaseCollateFunction',
     'BatchImageCollateFunction',
     'batch_image_collate_fn'
 ]
@@ -40,10 +40,10 @@ class DataLoader(data.DataLoader):
         return format_string
 
     def set_epoch(self, epoch):
-        self._epoch = epoch 
+        self._epoch = epoch
         self.dataset.set_epoch(epoch)
         self.collate_fn.set_epoch(epoch)
-    
+
     @property
     def epoch(self):
         return self._epoch if hasattr(self, '_epoch') else -1
@@ -67,7 +67,7 @@ def batch_image_collate_fn(items):
 
 class BaseCollateFunction(object):
     def set_epoch(self, epoch):
-        self._epoch = epoch 
+        self._epoch = epoch
 
     @property
     def epoch(self):
@@ -88,8 +88,8 @@ def generate_scales(base_size, base_size_repeat):
 @register()
 class BatchImageCollateFunction(BaseCollateFunction):
     def __init__(
-        self, 
-        stop_epoch=None, 
+        self,
+        stop_epoch=None,
         ema_restart_decay=0.9999,
         base_size=640,
         base_size_repeat=None,
@@ -118,4 +118,3 @@ class BatchImageCollateFunction(BaseCollateFunction):
                 raise NotImplementedError('')
 
         return images, targets
-

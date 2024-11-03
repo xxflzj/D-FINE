@@ -30,11 +30,11 @@ DFINETransformer:
 
 optimizer:
   type: AdamW
-  params: 
-    - 
+  params:
+    -
       params: '^(?=.*backbone)(?!.*norm|bn).*$'
       lr: 0.0000025
-    - 
+    -
       params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn)).*$'
       weight_decay: 0.
 
@@ -44,8 +44,8 @@ optimizer:
 
 
 epoches: 36 # Early stop
-train_dataloader: 
-  dataset: 
+train_dataloader:
+  dataset:
     transforms:
       policy:
         epoch: 30
@@ -56,6 +56,6 @@ train_dataloader:
 
 ema:
   warmups: 0
-  
+
 lr_warmup_scheduler:
   warmup_duration: 0

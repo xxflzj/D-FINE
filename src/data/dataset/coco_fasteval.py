@@ -12,8 +12,8 @@ import time
 
 import numpy as np
 from cocoeval_ext import (
-    InstanceAnnotation, 
-    COCOevalEvaluateImages, 
+    InstanceAnnotation,
+    COCOevalEvaluateImages,
     COCOevalAccumulate
 )
 from pycocotools.cocoeval import COCOeval

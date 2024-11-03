@@ -5,15 +5,15 @@ Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 
 import os
 import copy
-import yaml 
+import yaml
 from typing import Any, Dict, Optional, List
 
 from .workspace import GLOBAL_CONFIG
 
 __all__ = [
-    'load_config', 
-    'merge_config', 
-    'merge_dict', 
+    'load_config',
+    'merge_config',
+    'merge_dict',
     'parse_cli',
 ]
 
@@ -59,10 +59,10 @@ def merge_dict(dct, another_dct, inplace=True) -> Dict:
                 dct[k] = another[k]
 
         return dct
-    
+
     if not inplace:
         dct = copy.deepcopy(dct)
-    
+
     return _merge(dct, another_dct)
 
 
@@ -111,15 +111,15 @@ def merge_config(cfg, another_cfg=GLOBAL_CONFIG, inplace: bool=False, overwrite:
         for k in another:
             if k not in dct:
                 dct[k] = another[k]
-            
+
             elif isinstance(dct[k], dict) and isinstance(another[k], dict):
-                _merge(dct[k], another[k])   
-            
+                _merge(dct[k], another[k])
+
             elif overwrite:
                 dct[k] = another[k]
 
         return cfg
-    
+
     if not inplace:
         cfg = copy.deepcopy(cfg)
 

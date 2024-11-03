@@ -5,6 +5,25 @@ Copyright (c) 2024 The D-FINE Authors. All Rights Reserved.
 import os
 import subprocess
 
+import argparse
+
+from src.core import YAMLConfig
+
+import torch
+import fiftyone.core.models as fom
+import fiftyone as fo
+import fiftyone.zoo as foz
+import torchvision.transforms as transforms
+from PIL import Image
+import fiftyone.core.labels as fol
+import fiftyone.core.fields as fof
+from fiftyone import ViewField as F
+import time
+import tqdm
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..'))
+
+
 def kill_existing_mongod():
     try:
         result = subprocess.run(['ps', 'aux'], stdout=subprocess.PIPE)
@@ -21,25 +40,6 @@ def kill_existing_mongod():
         print(f"Error occurred while killing mongod: {e}")
 
 kill_existing_mongod()
-
-import sys
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '../..'))
-
-import argparse
-
-from src.core import YAMLConfig
-
-import torch
-import fiftyone.core.models as fom
-import fiftyone as fo
-import fiftyone.zoo as foz
-import torchvision.transforms as transforms
-from PIL import Image
-import fiftyone.core.labels as fol
-import fiftyone.core.fields as fof
-from fiftyone import ViewField as F
-import time
-import tqdm
 
 
 label_map = {
@@ -72,7 +72,7 @@ class CustomModel(fom.Model):
         self.transform = transforms.Compose([
             transforms.ToTensor(),
             transforms.Resize((640, 640)),  # Resize to the size expected by your model
-            # transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]) 
+            # transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
         ])
 
     @property
@@ -152,12 +152,12 @@ def filter_by_predictions5_confidence(predictions_view, confidence_threshold=0.3
 
             if "original_confidence" not in detection:
                 detection["original_confidence"] = detection["confidence"]
-                
+
             if (detection["confidence"] <= confidence_threshold and sample["predictions5"].detections[i]["confidence"] >= confidence_threshold) or \
                (detection["confidence"] >= confidence_threshold and sample["predictions5"].detections[i]["confidence"] <= confidence_threshold):
 
                 sample["predictions0"].detections[i]["confidence"] = sample["predictions5"].detections[i]["confidence"]
-                has_modified = True 
+                has_modified = True
         if has_modified:
             sample.save()
 
@@ -168,7 +168,7 @@ def restore_confidence(predictions_view):
             if "original_confidence" in detection:
                 detection["confidence"] = detection["original_confidence"]
         sample.save()
-      
+
 def fast_iou(bbox1, bbox2):
     x1, y1, w1, h1 = bbox1
     x2, y2, w2, h2 = bbox2
@@ -181,7 +181,7 @@ def fast_iou(bbox1, bbox2):
     boxBArea = w2 * h2
     iou = interArea / float(boxAArea + boxBArea - interArea)
     return iou
-    
+
 def assign_iou_diff(predictions_view):
     for sample in predictions_view:
         ious_0 = [detection.eval0_iou if 'eval0_iou' in detection else None for detection in sample["predictions0"].detections]
@@ -191,7 +191,7 @@ def assign_iou_diff(predictions_view):
         # iou_diffs = [abs(iou_5 - iou_0) if iou_0 is not None and iou_5 is not None else -1 for iou_0, iou_5 in zip(ious_0, ious_5)]
         iou_inter = [fast_iou(b0, b5) for b0, b5 in zip(bbox_0, bbox_5)]
         iou_diffs = [abs(iou_5 - iou_0) if iou_0 is not None and iou_5 is not None and iou_inter > 0.5 else -1 for iou_0, iou_5, iou_inter in zip(ious_0, ious_5, iou_inter)]
-        
+
         for detection, iou_diff in zip(sample["predictions0"].detections, iou_diffs):
             detection["iou_diff"] = iou_diff
         for detection, iou_diff in zip(sample["predictions5"].detections, iou_diffs):
@@ -199,11 +199,8 @@ def assign_iou_diff(predictions_view):
         # for detection, iou_diff in zip(sample["predictions100"].detections, iou_diffs):
         #     detection["iou_diff"] = iou_diff
         sample.save()
-       
+
 def main(args):
-    print("Shutting down session")
-    if 'session' in locals():
-        session.close()
     try:
         if os.path.exists("saved_predictions_view") and os.path.exists("saved_filtered_view"):
             print("Loading saved predictions and filtered views...")
@@ -213,7 +210,7 @@ def main(args):
                 dataset_name="evaluate-detections-tutorial",
                 dataset_dir="data/fiftyone"
             )
-            
+
             dataset.persistent = True
             session = fo.launch_app(dataset)
 
@@ -232,15 +229,15 @@ def main(args):
                 dataset_name="evaluate-detections-tutorial",
                 dataset_dir="data/fiftyone"
             )
-            
+
             dataset.persistent = True
-            
+
             session = fo.launch_app(dataset)
             cfg = YAMLConfig(args.config, resume=args.resume)
             if 'HGNetv2' in cfg.yaml_cfg:
                 cfg.yaml_cfg['HGNetv2']['pretrained'] = False
             if args.resume:
-                checkpoint = torch.load(args.resume, map_location='cpu') 
+                checkpoint = torch.load(args.resume, map_location='cpu')
                 if 'ema' in checkpoint:
                     state = checkpoint['ema']['module']
                 else:
@@ -271,7 +268,7 @@ def main(args):
                     eval_key=eval_key,
                     compute_mAP=True,
                 )
-            
+
             # assign_iou_diff(predictions_view)
 
             # filtered_view = predictions_view.filter_labels("predictions0", F("iou_diff") > 0.05, only_matches=True)

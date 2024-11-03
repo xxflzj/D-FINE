@@ -21,7 +21,7 @@ def create_split_annotations(original_annotations, split_image_ids, new_prefix, 
     print(f'Number of images selected: {len(new_images)}')
     if new_prefix is not None:
         new_images = update_image_paths(new_images, new_prefix)
-    
+
     new_annotations = {
         'images': new_images,
         'annotations': [ann for ann in original_annotations['annotations'] if ann['image_id'] in split_image_ids],

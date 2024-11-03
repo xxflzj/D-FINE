@@ -1,5 +1,5 @@
 use_amp: True
-use_ema: True 
+use_ema: True
 ema:
   type: ModelEMA
   decay: 0.9999
@@ -13,11 +13,11 @@ clip_max_norm: 0.1
 
 optimizer:
   type: AdamW
-  params: 
-    - 
+  params:
+    -
       params: '^(?=.*backbone)(?!.*norm).*$'
       lr: 0.0000125
-    - 
+    -
       params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn)).*$'
       weight_decay: 0.
 

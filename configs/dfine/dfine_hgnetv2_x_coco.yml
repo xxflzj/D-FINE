@@ -30,11 +30,11 @@ DFINETransformer:
 
 optimizer:
   type: AdamW
-  params: 
-    - 
+  params:
+    -
       params: '^(?=.*backbone)(?!.*norm|bn).*$'
       lr: 0.0000025
-    - 
+    -
       params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn)).*$'
       weight_decay: 0.
 
@@ -45,8 +45,8 @@ optimizer:
 
 # Increase to search for the optimal ema
 epoches: 80 # 72 + 2n
-train_dataloader: 
-  dataset: 
+train_dataloader:
+  dataset:
     transforms:
       policy:
         epoch: 72

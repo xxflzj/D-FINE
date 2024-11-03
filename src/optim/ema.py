@@ -8,7 +8,7 @@ Copyright (c) 2023 lyuwenyu. All Rights Reserved.
 
 
 import torch
-import torch.nn as nn 
+import torch.nn as nn
 
 import math
 from copy import deepcopy
@@ -33,11 +33,11 @@ class ModelEMA(object):
     def __init__(self, model: nn.Module, decay: float=0.9999, warmups: int=1000, start: int=0):
         super().__init__()
 
-        self.module = deepcopy(dist_utils.de_parallel(model)).eval() 
+        self.module = deepcopy(dist_utils.de_parallel(model)).eval()
         # if next(model.parameters()).device.type != 'cpu':
         #     self.module.half()  # FP16 EMA
-        
-        self.decay = decay 
+
+        self.decay = decay
         self.warmups = warmups
         self.before_start = 0
         self.start = start
@@ -46,7 +46,7 @@ class ModelEMA(object):
             self.decay_fn = lambda x: decay
         else:
             self.decay_fn = lambda x: decay * (1 - math.exp(-x / warmups))  # decay exponential ramp (to help early epochs)
-        
+
         for p in self.module.parameters():
             p.requires_grad_(False)
 
@@ -64,16 +64,16 @@ class ModelEMA(object):
                 if v.dtype.is_floating_point:
                     v *= d
                     v += (1 - d) * msd[k].detach()
-            
+
     def to(self, *args, **kwargs):
         self.module = self.module.to(*args, **kwargs)
         return self
 
     def state_dict(self, ):
         return dict(module=self.module.state_dict(), updates=self.updates)
-    
+
     def load_state_dict(self, state, strict=True):
-        self.module.load_state_dict(state['module'], strict=strict) 
+        self.module.load_state_dict(state['module'], strict=strict)
         if 'updates' in state:
             self.updates = state['updates']
 
@@ -93,13 +93,10 @@ class ExponentialMovingAverage(torch.optim.swa_utils.AveragedModel):
     """
     def __init__(self, model, decay, device="cpu", use_buffers=True):
 
-        self.decay_fn = lambda x: decay * (1 - math.exp(-x / 2000))  
-        
+        self.decay_fn = lambda x: decay * (1 - math.exp(-x / 2000))
+
         def ema_avg(avg_model_param, model_param, num_averaged):
             decay = self.decay_fn(num_averaged)
             return decay * avg_model_param + (1 - decay) * model_param
 
         super().__init__(model, device, ema_avg, use_buffers=use_buffers)
-
-
-

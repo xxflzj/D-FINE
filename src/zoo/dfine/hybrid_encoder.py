@@ -9,9 +9,9 @@ Copyright (c) 2023 lyuwenyu. All Rights Reserved.
 import copy
 from collections import OrderedDict
 
-import torch 
-import torch.nn as nn 
-import torch.nn.functional as F 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 
 from .utils import get_activation
 
@@ -25,15 +25,15 @@ class ConvNormLayer_fuse(nn.Module):
         super().__init__()
         padding = (kernel_size-1)//2 if padding is None else padding
         self.conv = nn.Conv2d(
-            ch_in, 
-            ch_out, 
-            kernel_size, 
-            stride, 
+            ch_in,
+            ch_out,
+            kernel_size,
+            stride,
             groups=g,
-            padding=padding, 
+            padding=padding,
             bias=bias)
         self.norm = nn.BatchNorm2d(ch_out)
-        self.act = nn.Identity() if act is None else get_activation(act) 
+        self.act = nn.Identity() if act is None else get_activation(act)
         self.ch_in, self.ch_out, self.kernel_size, self.stride, self.g, self.padding, self.bias = \
             ch_in, ch_out, kernel_size, stride, g, padding, bias
 
@@ -47,25 +47,25 @@ class ConvNormLayer_fuse(nn.Module):
     def convert_to_deploy(self):
         if not hasattr(self, 'conv_bn_fused'):
             self.conv_bn_fused = nn.Conv2d(
-                self.ch_in, 
-                self.ch_out, 
-                self.kernel_size, 
-                self.stride, 
-                groups=self.g, 
-                padding=self.padding, 
+                self.ch_in,
+                self.ch_out,
+                self.kernel_size,
+                self.stride,
+                groups=self.g,
+                padding=self.padding,
                 bias=True)
 
         kernel, bias = self.get_equivalent_kernel_bias()
         self.conv_bn_fused.weight.data = kernel
-        self.conv_bn_fused.bias.data = bias 
+        self.conv_bn_fused.bias.data = bias
         self.__delattr__('conv')
         self.__delattr__('norm')
 
     def get_equivalent_kernel_bias(self):
         kernel3x3, bias3x3 = self._fuse_bn_tensor()
-        
+
         return kernel3x3, bias3x3
-            
+
     def _fuse_bn_tensor(self):
         kernel = self.conv.weight
         running_mean = self.norm.running_mean
@@ -76,22 +76,22 @@ class ConvNormLayer_fuse(nn.Module):
         std = (running_var + eps).sqrt()
         t = (gamma / std).reshape(-1, 1, 1, 1)
         return kernel * t, beta - running_mean * gamma / std
-    
-    
+
+
 class ConvNormLayer(nn.Module):
     def __init__(self, ch_in, ch_out, kernel_size, stride, g=1, padding=None, bias=False, act=None):
         super().__init__()
         padding = (kernel_size-1)//2 if padding is None else padding
         self.conv = nn.Conv2d(
-            ch_in, 
-            ch_out, 
-            kernel_size, 
-            stride, 
+            ch_in,
+            ch_out,
+            kernel_size,
+            stride,
             groups=g,
-            padding=padding, 
+            padding=padding,
             bias=bias)
         self.norm = nn.BatchNorm2d(ch_out)
-        self.act = nn.Identity() if act is None else get_activation(act) 
+        self.act = nn.Identity() if act is None else get_activation(act)
 
     def forward(self, x):
         return self.act(self.norm(self.conv(x)))
@@ -105,8 +105,8 @@ class SCDown(nn.Module):
 
     def forward(self, x):
         return self.cv2(self.cv1(x))
-    
-    
+
+
 class VGGBlock(nn.Module):
     def __init__(self, ch_in, ch_out, act='relu'):
         super().__init__()
@@ -130,14 +130,14 @@ class VGGBlock(nn.Module):
 
         kernel, bias = self.get_equivalent_kernel_bias()
         self.conv.weight.data = kernel
-        self.conv.bias.data = bias 
+        self.conv.bias.data = bias
         self.__delattr__('conv1')
         self.__delattr__('conv2')
 
     def get_equivalent_kernel_bias(self):
         kernel3x3, bias3x3 = self._fuse_bn_tensor(self.conv1)
         kernel1x1, bias1x1 = self._fuse_bn_tensor(self.conv2)
-        
+
         return kernel3x3 + self._pad_1x1_to_3x3_tensor(kernel1x1), bias3x3 + bias1x1
 
     def _pad_1x1_to_3x3_tensor(self, kernel1x1):
@@ -158,11 +158,11 @@ class VGGBlock(nn.Module):
         std = (running_var + eps).sqrt()
         t = (gamma / std).reshape(-1, 1, 1, 1)
         return kernel * t, beta - running_mean * gamma / std
-    
+
 
 class ELAN(nn.Module):
     # csp-elan
-    def __init__(self, c1, c2, c3, c4, n=2,  
+    def __init__(self, c1, c2, c3, c4, n=2,
                  bias=False,
                  act="silu",
                  bottletype=VGGBlock):
@@ -178,18 +178,18 @@ class ELAN(nn.Module):
         y = list(self.cv1(x).chunk(2, 1))
         y.extend((m(y[-1])) for m in [self.cv2, self.cv3])
         return self.cv4(torch.cat(y, 1))
-    
-                                   
+
+
 class RepNCSPELAN4(nn.Module):
     # csp-elan
-    def __init__(self, c1, c2, c3, c4, n=3,  
+    def __init__(self, c1, c2, c3, c4, n=3,
                  bias=False,
                  act="silu"):
         super().__init__()
         self.c = c3//2
         self.cv1 = ConvNormLayer_fuse(c1, c3, 1, 1, bias=bias, act=act)
         self.cv2 = nn.Sequential(CSPLayer(c3//2, c4, n, 1, bias=bias, act=act, bottletype=VGGBlock), ConvNormLayer_fuse(c4, c4, 3, 1, bias=bias, act=act))
-        self.cv3 = nn.Sequential(CSPLayer(c4, c4, n, 1, bias=bias, act=act, bottletype=VGGBlock), ConvNormLayer_fuse(c4, c4, 3, 1, bias=bias, act=act))    
+        self.cv3 = nn.Sequential(CSPLayer(c4, c4, n, 1, bias=bias, act=act, bottletype=VGGBlock), ConvNormLayer_fuse(c4, c4, 3, 1, bias=bias, act=act))
         self.cv4 = ConvNormLayer_fuse(c3+(2*c4), c2, 1, 1, bias=bias, act=act)
 
     def forward_chunk(self, x):
@@ -201,8 +201,8 @@ class RepNCSPELAN4(nn.Module):
         y = list(self.cv1(x).split((self.c, self.c), 1))
         y.extend(m(y[-1]) for m in [self.cv2, self.cv3])
         return self.cv4(torch.cat(y, 1))
-    
-      
+
+
 class CSPLayer(nn.Module):
     def __init__(self,
                  in_channels,
@@ -230,7 +230,7 @@ class CSPLayer(nn.Module):
         x_2 = self.conv2(x)
         return self.conv3(x_1 + x_2)
 
-    
+
 # transformer
 class TransformerEncoderLayer(nn.Module):
     def __init__(self,
@@ -253,7 +253,7 @@ class TransformerEncoderLayer(nn.Module):
         self.norm2 = nn.LayerNorm(d_model)
         self.dropout1 = nn.Dropout(dropout)
         self.dropout2 = nn.Dropout(dropout)
-        self.activation = get_activation(activation) 
+        self.activation = get_activation(activation)
 
     @staticmethod
     def with_pos_embed(tensor, pos_embed):
@@ -316,7 +316,7 @@ class HybridEncoder(nn.Module):
                  expansion=1.0,
                  depth_mult=1.0,
                  act='silu',
-                 eval_spatial_size=None, 
+                 eval_spatial_size=None,
                  ):
         super().__init__()
         self.in_channels = in_channels
@@ -325,10 +325,10 @@ class HybridEncoder(nn.Module):
         self.use_encoder_idx = use_encoder_idx
         self.num_encoder_layers = num_encoder_layers
         self.pe_temperature = pe_temperature
-        self.eval_spatial_size = eval_spatial_size        
+        self.eval_spatial_size = eval_spatial_size
         self.out_channels = [hidden_dim for _ in range(len(in_channels))]
         self.out_strides = feat_strides
-        
+
         # channel projection
         self.input_proj = nn.ModuleList()
         for in_channel in in_channels:
@@ -337,14 +337,14 @@ class HybridEncoder(nn.Module):
                     ('conv', nn.Conv2d(in_channel, hidden_dim, kernel_size=1, bias=False)),
                     ('norm', nn.BatchNorm2d(hidden_dim))
                 ]))
-                
+
             self.input_proj.append(proj)
 
         # encoder transformer
         encoder_layer = TransformerEncoderLayer(
-            hidden_dim, 
+            hidden_dim,
             nhead=nhead,
-            dim_feedforward=dim_feedforward, 
+            dim_feedforward=dim_feedforward,
             dropout=dropout,
             activation=enc_act)
 
@@ -408,7 +408,7 @@ class HybridEncoder(nn.Module):
     def forward(self, feats):
         assert len(feats) == len(self.in_channels)
         proj_feats = [self.input_proj[i](feat) for i, feat in enumerate(feats)]
-        
+
         # encoder
         if self.num_encoder_layers > 0:
             for i, enc_ind in enumerate(self.use_encoder_idx):

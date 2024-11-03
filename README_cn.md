@@ -62,7 +62,7 @@ D-FINE 是一个强大的实时目标检测器，将 DETR 中的边界框回归�
 
 <details open>
 <summary> 视频 </summary>
-  
+
 我们分别使用 D-FINE 和 YOLO11 对 [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A) 上的一段复杂街景视频进行了目标检测。尽管存在逆光、虚化模糊和密集遮挡等不利因素，D-FINE-X 依然成功检测出几乎所有目标，包括背包、自行车和信号灯等难以察觉的小目标，其置信度、以及模糊边缘的定位准确度明显高于 YOLO11x。
 
 https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
@@ -78,7 +78,7 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 ## 模型库
 
 ### COCO
-| 模型 | 数据集 | AP<sup>val</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 | 
+| 模型 | 数据集 | AP<sup>val</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
 **D&#8209;FINE&#8209;S** | COCO | **48.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_s_coco_log.txt)
 **D&#8209;FINE&#8209;M** | COCO | **52.3** | 19M | 5.62ms | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_m_coco_log.txt)
@@ -117,7 +117,7 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 ## 快速开始
 
 ### 设置
-  
+
 ```shell
 conda create -n dfine python=3.11.9
 conda activate dfine
@@ -132,21 +132,21 @@ pip install -r requirements.txt
 
 
 <details>
-  
+
 <summary> COCO2017 数据集 </summary>
 
-1. 从 [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017) 或者 [COCO](https://cocodataset.org/#download) 下载 COCO2017。 
+1. 从 [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017) 或者 [COCO](https://cocodataset.org/#download) 下载 COCO2017。
 1.修改 [coco_detection.yml](./configs/dataset/coco_detection.yml) 中的路径。
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         img_folder: /data/COCO2017/train2017/
         ann_file: /data/COCO2017/annotations/instances_train2017.json
     val_dataloader:
         img_folder: /data/COCO2017/val2017/
         ann_file: /data/COCO2017/annotations/instances_val2017.json
     ```
-      
+
 </details>
 
 <details>
@@ -218,7 +218,7 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 8. 修改 [obj365_detection.yml](./configs/dataset/obj365_detection.yml) 中的路径。
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         img_folder: /data/Objects365/data/train
         ann_file: /data/Objects365/data/train/new_zhiyuan_objv2_train_resized.json
     val_dataloader:
@@ -288,17 +288,17 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 
     ```yaml
     task: detection
-    
+
     evaluator:
       type: CocoEvaluator
       iou_types: ['bbox', ]
 
     num_classes: 777 # your dataset classes
     remap_mscoco_category: False
-    
-    train_dataloader: 
+
+    train_dataloader:
       type: DataLoader
-      dataset: 
+      dataset:
         type: CocoDetection
         img_folder: /data/yourdataset/train
         ann_file: /data/yourdataset/train/train.json
@@ -308,20 +308,20 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
           ops: ~
       shuffle: True
       num_workers: 4
-      drop_last: True 
+      drop_last: True
       collate_fn:
         type: BatchImageCollateFunction
-    
+
     val_dataloader:
       type: DataLoader
-      dataset: 
+      dataset:
         type: CocoDetection
         img_folder: /data/yourdataset/val
         ann_file: /data/yourdataset/val/ann.json
         return_masks: False
         transforms:
           type: Compose
-          ops: ~ 
+          ops: ~
       shuffle: False
       num_workers: 4
       drop_last: False
@@ -410,7 +410,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 ```
 
 5. **[可选项]** 修改类映射:
-   
+
 在使用 Objects365 预训练权重训练自定义数据集时，示例中假设自定义数据集仅有 `'Person'` 和 `'Car'` 类，您可以将其替换为数据集中对应的任何类别。为了加快收敛，可以在 `src/solver/_solver.py` 中修改 `self.obj365_ids`，如下所示：
 
 ```python
@@ -437,7 +437,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 1. **修改你的 [dataloader.yml](./configs/dfine/include/dataloader.yml)**，增加 `total_batch_size`：
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         total_batch_size: 64  # 原来是 32，现在增加了一倍
     ```
 
@@ -446,11 +446,11 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
     ```yaml
     optimizer:
     type: AdamW
-    params: 
-        - 
+    params:
+        -
         params: '^(?=.*backbone)(?!.*norm|bn).*$'
         lr: 0.000025  # 翻倍，线性缩放原则
-        - 
+        -
         params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn)).*$'
         weight_decay: 0.
 
@@ -477,17 +477,17 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
     ```yaml
 
-    train_dataloader: 
-    dataset: 
+    train_dataloader:
+    dataset:
         transforms:
             ops:
                 - {type: Resize, size: [320, 320], }
     collate_fn:
         base_size: 320
-    dataset: 
+    dataset:
         transforms:
-            ops: 
-                - {type: Resize, size: [320, 320], } 
+            ops:
+                - {type: Resize, size: [320, 320], }
     ```
 
 2. **修改你的 [dfine_hgnetv2.yml](./configs/dfine/include/dfine_hgnetv2.yml)**：
@@ -596,36 +596,36 @@ python reference/convert_weight.py model.pth
 
 ## 图表与可视化
 
-<details> 
+<details>
 <summary> FDR 和 GO-LSD </summary>
 
 D-FINE与FDR概览。概率分布作为更细粒度的中间表征，通过解码器层以残差方式进行迭代优化。应用非均匀加权函数以实现更精细的定位。
-<p align="center"> 
+<p align="center">
 <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/fdr-1.jpg" alt="细粒度分布优化过程" width="1000"> </p>
 GO-LSD流程概览。通过DDF损失函数和解耦加权策略将最终层分布中的定位知识蒸馏到前面的层中。
-<p align="center"> <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/go_lsd-1.jpg" alt="GO-LSD流程" width="1000"> </p> 
+<p align="center"> <img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/go_lsd-1.jpg" alt="GO-LSD流程" width="1000"> </p>
 
-</details> 
+</details>
 
 <details open>
 <summary> 分布可视化 </summary>
 
 FDR在检测场景中的可视化，包括初始和优化后的边界框，以及未加权和加权的分布图。
 
-<p align="center"> 
-<img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000"> 
-</p> 
+<p align="center">
+<img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/merged_image.jpg" width="1000">
+</p>
 
-</details> 
+</details>
 
-<details> 
+<details>
 <summary> 困难场景 </summary>
 
 以下可视化展示了D-FINE在各种复杂检测场景中的预测结果。这些场景包括遮挡、低光条件、运动模糊、景深效果和密集场景。尽管面临这些挑战，D-FINE依然能够生成准确的定位结果。
 
-<p align="center"> 
-<img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/hard_case-1.jpg" alt="D-FINE在挑战性场景中的预测" width="1000"> 
-</p> 
+<p align="center">
+<img src="https://raw.githubusercontent.com/Peterande/storage/master/figs/hard_case-1.jpg" alt="D-FINE在挑战性场景中的预测" width="1000">
+</p>
 
 </details>
 
@@ -641,7 +641,7 @@ FDR在检测场景中的可视化，包括初始和优化后的边界框，以�
 
 ```latex
 @misc{peng2024dfine,
-      title={D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement}, 
+      title={D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement},
       author={Yansong Peng and Hebei Li and Peixi Wu and Yueyi Zhang and Xiaoyan Sun and Feng Wu},
       year={2024},
       eprint={2410.13842},

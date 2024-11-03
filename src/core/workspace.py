@@ -6,7 +6,6 @@ Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 import inspect
 import importlib
 import functools
-import inspect
 from collections import defaultdict
 from typing import Any, Dict, Optional, List
 
@@ -19,7 +18,7 @@ def register(dct :Any=GLOBAL_CONFIG, name=None, force=False):
         dct:
             if dct is Dict, register foo into dct as key-value pair
             if dct is Clas, register as modules attibute
-        force 
+        force
             whether force register.
     """
     def decorator(foo):
@@ -45,7 +44,7 @@ def register(dct :Any=GLOBAL_CONFIG, name=None, force=False):
             return wrap_func
 
         elif inspect.isclass(foo):
-            dct[register_name] = extract_schema(foo) 
+            dct[register_name] = extract_schema(foo)
 
         else:
             raise ValueError(f'Do not support {type(foo)} register')
@@ -61,7 +60,7 @@ def extract_schema(module: type):
     Args:
         module (type),
     Return:
-        Dict, 
+        Dict,
     """
     argspec = inspect.getfullargspec(module.__init__)
     arg_names = [arg for arg in argspec.args if arg != 'self']
@@ -78,16 +77,16 @@ def extract_schema(module: type):
         if name in schame['_share']:
             assert i >= num_requires, 'share config must have default value.'
             value = argspec.defaults[i - num_requires]
-        
+
         elif i >= num_requires:
             value = argspec.defaults[i - num_requires]
 
         else:
-            value = None 
+            value = None
 
         schame[name] = value
-        schame['_kwargs'][name] = value 
-        
+        schame['_kwargs'][name] = value
+
     return schame
 
 
@@ -113,16 +112,16 @@ def create(type_or_name, global_cfg=GLOBAL_CONFIG, **kwargs):
         for _arg in _keys:
             del _cfg[_arg]
         _cfg.update(_cfg['_kwargs']) # restore default args
-        _cfg.update(cfg) # load config args 
+        _cfg.update(cfg) # load config args
         _cfg.update(kwargs) # TODO recive extra kwargs
         name = _cfg.pop('type') # pop extra key `type` (from cfg)
-        
+
         return create(name, global_cfg)
-    
-    module = getattr(cfg['_pymodule'], name)    
+
+    module = getattr(cfg['_pymodule'], name)
     module_kwargs = {}
     module_kwargs.update(cfg)
-    
+
     # shared var
     for k in cfg['_share']:
         if k in global_cfg:
@@ -137,26 +136,26 @@ def create(type_or_name, global_cfg=GLOBAL_CONFIG, **kwargs):
         if _k is None:
             continue
 
-        if isinstance(_k, str):            
+        if isinstance(_k, str):
             if _k not in global_cfg:
                 raise ValueError(f'Missing inject config of {_k}.')
 
             _cfg = global_cfg[_k]
-            
+
             if isinstance(_cfg, dict):
                 module_kwargs[k] = create(_cfg['_name'], global_cfg)
             else:
-                module_kwargs[k] = _cfg 
+                module_kwargs[k] = _cfg
 
         elif isinstance(_k, dict):
             if 'type' not in _k.keys():
-                raise ValueError(f'Missing inject for `type` style.')
+                raise ValueError('Missing inject for `type` style.')
 
             _type = str(_k['type'])
             if _type not in global_cfg:
                 raise ValueError(f'Missing {_type} in inspect stage.')
 
-            # TODO 
+            # TODO
             _cfg: dict = global_cfg[_type]
             # clean args
             _keys = [k for k in _cfg.keys() if not k.startswith('_')]
@@ -169,7 +168,7 @@ def create(type_or_name, global_cfg=GLOBAL_CONFIG, **kwargs):
 
         else:
             raise ValueError(f'Inject does not support {_k}')
-    
+
     # TODO hard code
     module_kwargs = {k: v for k, v in module_kwargs.items() if not k.startswith('_')}
 

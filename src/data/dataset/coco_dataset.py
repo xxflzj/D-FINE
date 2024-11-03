@@ -9,14 +9,14 @@ import torch
 import torch.utils.data
 
 import torchvision
-torchvision.disable_beta_transforms_warning()
 
-from PIL import Image 
+from PIL import Image
 from pycocotools import mask as coco_mask
 
 from ._dataset import DetDataset
 from .._misc import convert_to_tv_tensor
 from ...core import register
+torchvision.disable_beta_transforms_warning()
 
 __all__ = ['CocoDetection']
 
@@ -25,7 +25,7 @@ __all__ = ['CocoDetection']
 class CocoDetection(torchvision.datasets.CocoDetection, DetDataset):
     __inject__ = ['transforms', ]
     __share__ = ['remap_mscoco_category']
-    
+
     def __init__(self, img_folder, ann_file, transforms, return_masks=False, remap_mscoco_category=False):
         super(CocoDetection, self).__init__(img_folder, ann_file)
         self._transforms = transforms
@@ -59,7 +59,7 @@ class CocoDetection(torchvision.datasets.CocoDetection, DetDataset):
 
         if 'masks' in target:
             target['masks'] = convert_to_tv_tensor(target['masks'], key='masks')
-        
+
         return image, target
 
     def extra_repr(self) -> str:
@@ -69,7 +69,7 @@ class CocoDetection(torchvision.datasets.CocoDetection, DetDataset):
             s += f' transforms:\n   {repr(self._transforms)}'
         if hasattr(self, '_preset') and self._preset is not None:
             s += f' preset:\n   {repr(self._preset)}'
-        return s 
+        return s
 
     @property
     def categories(self, ):
@@ -131,7 +131,7 @@ class ConvertCocoPolysToMask(object):
             labels = [category2label[obj["category_id"]] for obj in anno]
         else:
             labels = [obj["category_id"] for obj in anno]
-            
+
         labels = torch.tensor(labels, dtype=torch.int64)
 
         if self.return_masks:
@@ -171,7 +171,7 @@ class ConvertCocoPolysToMask(object):
 
         target["orig_size"] = torch.as_tensor([int(w), int(h)])
         # target["size"] = torch.as_tensor([int(w), int(h)])
-    
+
         return image, target
 
 

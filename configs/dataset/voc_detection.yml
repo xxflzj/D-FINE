@@ -6,9 +6,9 @@ evaluator:
 
 num_classes: 20
 
-train_dataloader: 
+train_dataloader:
   type: DataLoader
-  dataset: 
+  dataset:
     type: VOCDetection
     root: ./dataset/voc/
     ann_file: trainval.txt
@@ -18,14 +18,14 @@ train_dataloader:
       ops: ~
   shuffle: True
   num_workers: 4
-  drop_last: True 
+  drop_last: True
   collate_fn:
     type: BatchImageCollateFunction
 
 
 val_dataloader:
   type: DataLoader
-  dataset: 
+  dataset:
     type: VOCDetection
     root: ./dataset/voc/
     ann_file: test.txt

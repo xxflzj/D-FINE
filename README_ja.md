@@ -74,7 +74,7 @@ D-FINEは、DETRの境界ボックス回帰タスクを細粒度分布最適化�
 
 <details open>
 <summary> ビデオ </summary>
-  
+
 D-FINEとYOLO11を使用して、[YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A)の複雑な街並みのビデオでオブジェクト検出を行いました。逆光、モーションブラー、密集した群衆などの厳しい条件にもかかわらず、D-FINE-Xはほぼすべてのターゲットを検出し、バックパック、自転車、信号機などの微妙な小さなオブジェクトも含まれます。その信頼スコアとぼやけたエッジの位置特定精度はYOLO11よりもはるかに高いです。
 
 <!-- We use D-FINE and YOLO11 on a street scene video from [YouTube](https://www.youtube.com/watch?v=CfhEWj9sd9A). Despite challenges like backlighting, motion blur, and dense crowds, D-FINE-X outperforms YOLO11x, detecting more objects with higher confidence and better precision. -->
@@ -145,24 +145,24 @@ pip install -r requirements.txt
 <details>
 <summary> COCO2017 データセット </summary>
 
-1. [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017) または [COCO](https://cocodataset.org/#download) からCOCO2017をダウンロードします。 
+1. [OpenDataLab](https://opendatalab.com/OpenDataLab/COCO_2017) または [COCO](https://cocodataset.org/#download) からCOCO2017をダウンロードします。
 1. [coco_detection.yml](./configs/dataset/coco_detection.yml) のパスを修正します。
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         img_folder: /data/COCO2017/train2017/
         ann_file: /data/COCO2017/annotations/instances_train2017.json
     val_dataloader:
         img_folder: /data/COCO2017/val2017/
         ann_file: /data/COCO2017/annotations/instances_val2017.json
     ```
-      
+
 </details>
 
 <details>
 <summary> Objects365 データセット </summary>
 
-1. [OpenDataLab](https://opendatalab.com/OpenDataLab/Objects365) からObjects365をダウンロードします。 
+1. [OpenDataLab](https://opendatalab.com/OpenDataLab/Objects365) からObjects365をダウンロードします。
 
 2. ベースディレクトリを設定します：
 ```shell
@@ -226,7 +226,7 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 8. [obj365_detection.yml](./configs/dataset/obj365_detection.yml) のパスを修正します。
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         img_folder: /data/Objects365/data/train
         ann_file: /data/Objects365/data/train/new_zhiyuan_objv2_train_resized.json
     val_dataloader:
@@ -296,17 +296,17 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 
     ```yaml
     task: detection
-    
+
     evaluator:
       type: CocoEvaluator
       iou_types: ['bbox', ]
 
     num_classes: 777 # データセットのクラス数
     remap_mscoco_category: False
-    
-    train_dataloader: 
+
+    train_dataloader:
       type: DataLoader
-      dataset: 
+      dataset:
         type: CocoDetection
         img_folder: /data/yourdataset/train
         ann_file: /data/yourdataset/train/train.json
@@ -316,20 +316,20 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
           ops: ~
       shuffle: True
       num_workers: 4
-      drop_last: True 
+      drop_last: True
       collate_fn:
         type: BatchImageCollateFunction
-    
+
     val_dataloader:
       type: DataLoader
-      dataset: 
+      dataset:
         type: CocoDetection
         img_folder: /data/yourdataset/val
         ann_file: /data/yourdataset/val/ann.json
         return_masks: False
         transforms:
           type: Compose
-          ops: ~ 
+          ops: ~
       shuffle: False
       num_workers: 4
       drop_last: False
@@ -419,7 +419,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 ```
 
 5. **[オプション]** クラスマッピングを変更します：
-   
+
 Objects365の事前トレーニング済みの重みを使用してカスタムデータセットでトレーニングする場合、例ではデータセットに `'Person'` と `'Car'` クラスのみが含まれていると仮定しています。特定のタスクに対して収束を早めるために、`src/solver/_solver.py` の `self.obj365_ids` を以下のように変更できます：
 
 ```python
@@ -448,7 +448,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 1. **[dataloader.yml](./configs/dfine/include/dataloader.yml) を修正して `total_batch_size` を増やします**：
 
     ```yaml
-    train_dataloader: 
+    train_dataloader:
         total_batch_size: 64  # 以前は32、今は2倍
     ```
 
@@ -457,11 +457,11 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
     ```yaml
     optimizer:
     type: AdamW
-    params: 
-        - 
+    params:
+        -
         params: '^(?=.*backbone)(?!.*norm|bn).*$'
         lr: 0.000025  # 2倍、線形スケーリング法則
-        - 
+        -
         params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn)).*$'
         weight_decay: 0.
 
@@ -489,17 +489,17 @@ COCO2017で **D-FINE-L** を320x320の入力サイズでトレーニングした
 
     ```yaml
 
-    train_dataloader: 
-    dataset: 
+    train_dataloader:
+    dataset:
         transforms:
             ops:
                 - {type: Resize, size: [320, 320], }
     collate_fn:
         base_size: 320
-    dataset: 
+    dataset:
         transforms:
-            ops: 
-                - {type: Resize, size: [320, 320], } 
+            ops:
+                - {type: Resize, size: [320, 320], }
     ```
 
 2. **[dfine_hgnetv2.yml](./configs/dfine/include/dfine_hgnetv2.yml) を修正します**：
@@ -546,7 +546,7 @@ export model=l  # s m l x
 
 <!-- <summary>5. 推論 </summary> -->
 2. 推論 (onnxruntime / tensorrt / torch)
-   
+
 現在、画像とビデオの推論がサポートされています。
 ```shell
 python tools/inference/onnx_inf.py --onnx model.onnx --input image.jpg  # video.mp4
@@ -665,7 +665,7 @@ python reference/convert_weight.py model.pth
 
 ```latex
 @misc{peng2024dfine,
-      title={D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement}, 
+      title={D-FINE: Redefine Regression Task in DETRs as Fine-grained Distribution Refinement},
       author={Yansong Peng and Hebei Li and Peixi Wu and Yueyi Zhang and Xiaoyan Sun and Feng Wu},
       year={2024},
       eprint={2410.13842},

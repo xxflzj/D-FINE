@@ -1,6 +1,6 @@
 onnxruntime
 tensorrt
-pycuda 
+pycuda
 calflops
 tqdm
 # onnx_graphsurgeon # for YOLOs

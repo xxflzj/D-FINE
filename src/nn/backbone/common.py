@@ -3,7 +3,7 @@ Copied from RT-DETR (https://github.com/lyuwenyu/RT-DETR)
 Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
-import torch 
+import torch
 import torch.nn as nn
 
 
@@ -11,14 +11,14 @@ class ConvNormLayer(nn.Module):
     def __init__(self, ch_in, ch_out, kernel_size, stride, padding=None, bias=False, act=None):
         super().__init__()
         self.conv = nn.Conv2d(
-            ch_in, 
-            ch_out, 
-            kernel_size, 
-            stride, 
-            padding=(kernel_size-1)//2 if padding is None else padding, 
+            ch_in,
+            ch_out,
+            kernel_size,
+            stride,
+            padding=(kernel_size-1)//2 if padding is None else padding,
             bias=bias)
         self.norm = nn.BatchNorm2d(ch_out)
-        self.act = nn.Identity() if act is None else get_activation(act) 
+        self.act = nn.Identity() if act is None else get_activation(act)
 
     def forward(self, x):
         return self.act(self.norm(self.conv(x)))
@@ -39,7 +39,7 @@ class FrozenBatchNorm2d(nn.Module):
         self.register_buffer("running_mean", torch.zeros(n))
         self.register_buffer("running_var", torch.ones(n))
         self.eps = eps
-        self.num_features = n 
+        self.num_features = n
 
     def _load_from_state_dict(self, state_dict, prefix, local_metadata, strict,
                               missing_keys, unexpected_keys, error_msgs):
@@ -85,10 +85,10 @@ def get_activation(act: str, inplace: bool=True):
         return nn.Identity()
 
     elif isinstance(act, nn.Module):
-        return act 
+        return act
 
     act = act.lower()
-    
+
     if act == 'silu' or act == 'swish':
         m = nn.SiLU()
 
@@ -100,7 +100,7 @@ def get_activation(act: str, inplace: bool=True):
 
     elif act == 'silu':
         m = nn.SiLU()
-    
+
     elif act == 'gelu':
         m = nn.GELU()
 
@@ -108,9 +108,9 @@ def get_activation(act: str, inplace: bool=True):
         m = nn.Hardsigmoid()
 
     else:
-        raise RuntimeError('')  
+        raise RuntimeError('')
 
     if hasattr(m, 'inplace'):
         m.inplace = inplace
-    
-    return m 
+
+    return m

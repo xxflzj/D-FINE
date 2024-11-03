@@ -4,9 +4,9 @@ https://github.com/PaddlePaddle/PaddleDetection/blob/release/2.6/ppdet/modeling/
 Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 """
 
-import torch 
-import torch.nn as nn 
-import torch.nn.functional as F 
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
 from collections import OrderedDict
 
 from .common import get_activation
@@ -29,8 +29,8 @@ class ConvBNLayer(nn.Module):
         super().__init__()
         self.conv = nn.Conv2d(ch_in, ch_out, filter_size, stride, padding, groups=groups, bias=False)
         self.bn = nn.BatchNorm2d(ch_out)
-        self.act = get_activation(act) 
-       
+        self.act = get_activation(act)
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         x = self.conv(x)
         x = self.bn(x)
@@ -46,7 +46,7 @@ class RepVggBlock(nn.Module):
             ch_in, ch_out, 3, stride=1, padding=1, act=None)
         self.conv2 = ConvBNLayer(
             ch_in, ch_out, 1, stride=1, padding=0, act=None)
-        self.act = get_activation(act) 
+        self.act = get_activation(act)
 
         if alpha:
             self.alpha = nn.Parameter(torch.ones(1, ))
@@ -70,7 +70,7 @@ class RepVggBlock(nn.Module):
 
         kernel, bias = self.get_equivalent_kernel_bias()
         self.conv.weight.data = kernel
-        self.conv.bias.data = bias 
+        self.conv.bias.data = bias
 
     def get_equivalent_kernel_bias(self):
         kernel3x3, bias3x3 = self._fuse_bn_tensor(self.conv1)
@@ -207,7 +207,7 @@ class CSPResNet(nn.Module):
                  use_alpha=False,
                  pretrained=False):
 
-        super().__init__()        
+        super().__init__()
         depth_mult = self.model_cfg[name]['depth_mult']
         width_mult = self.model_cfg[name]['width_mult']
 
@@ -273,5 +273,5 @@ class CSPResNet(nn.Module):
             x = stage(x)
             if idx in self.return_idx:
                 outs.append(x)
-        
+
         return outs

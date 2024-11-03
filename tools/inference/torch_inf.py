@@ -34,7 +34,7 @@ def draw(images, labels, boxes, scores, thrh=0.4):
                 fill='blue',
             )
 
-        im.save(f'torch_results.jpg')
+        im.save('torch_results.jpg')
 
 
 def process_image(model, device, file_path):

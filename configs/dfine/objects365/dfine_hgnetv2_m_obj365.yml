@@ -27,18 +27,18 @@ HybridEncoder:
   in_channels: [384, 768, 1536]
   hidden_dim: 256
   depth_mult: 0.67
-  
+
 optimizer:
   type: AdamW
-  params: 
-    - 
+  params:
+    -
       params: '^(?=.*backbone)(?!.*norm|bn).*$'
       lr: 0.000025
-    - 
+    -
       params: '^(?=.*backbone)(?=.*norm|bn).*$'
       lr: 0.000025
       weight_decay: 0.
-    - 
+    -
       params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$'
       weight_decay: 0.
 
@@ -46,11 +46,11 @@ optimizer:
   betas: [0.9, 0.999]
   weight_decay: 0.000125
 #   weight_decay: 0.00005  # Faster convergence (optional)
-  
-  
+
+
 epoches: 36 # Early stop
-train_dataloader: 
-  dataset: 
+train_dataloader:
+  dataset:
     transforms:
       policy:
         epoch: 500

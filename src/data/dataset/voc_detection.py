@@ -6,7 +6,7 @@ Copyright(c) 2023 lyuwenyu. All Rights Reserved.
 from sympy import im
 import torch
 import torchvision
-import torchvision.transforms.functional as TVF 
+import torchvision.transforms.functional as TVF
 
 import os
 from PIL import Image
@@ -41,23 +41,23 @@ class VOCDetection(torchvision.datasets.VOCDetection, DetDataset):
 
         self.transforms = transforms
         self.labels_map = {lab: i for i, lab in enumerate(labels)}
-        
+
     def __getitem__(self, index: int):
         image, target = self.load_item(index)
         if self.transforms is not None:
-            image, target, _ = self.transforms(image, target, self)        
+            image, target, _ = self.transforms(image, target, self)
         # target["orig_size"] = torch.tensor(TVF.get_image_size(image))
         return image, target
 
     def load_item(self, index: int):
         image = Image.open(self.images[index]).convert("RGB")
         target = self.parse_voc_xml(ET_parse(self.annotations[index]).getroot())
-        
+
         output = {}
         output["image_id"] = torch.tensor([index])
         for k in ['area', 'boxes', 'labels', 'iscrowd']:
             output[k] = []
-            
+
         for blob in target['annotation']['object']:
             box = [float(v) for v in blob['bndbox'].values()]
             output["boxes"].append(box)
@@ -72,6 +72,5 @@ class VOCDetection(torchvision.datasets.VOCDetection, DetDataset):
         output['area'] = torch.tensor(output['area'])
         output["iscrowd"] = torch.tensor(output["iscrowd"])
         output["orig_size"] = torch.tensor([w, h])
-        
+
         return image, output
-    

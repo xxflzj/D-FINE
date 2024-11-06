@@ -1,12 +1,12 @@
 __include__: [
-  '../dataset/coco_detection.yml',
-  '../runtime.yml',
-  './include/dataloader.yml',
-  './include/optimizer.yml',
-  './include/dfine_hgnetv2.yml',
+  '../../dataset/coco_detection.yml',
+  '../../runtime.yml',
+  '../include/dataloader.yml',
+  '../include/optimizer.yml',
+  '../include/dfine_hgnetv2.yml',
 ]
 
-output_dir: ./output/dfine_hgnetv2_n_coco
+output_dir: ./output/dfine_hgnetv2_n_obj2coco
 
 
 DFINE:
@@ -65,18 +65,24 @@ optimizer:
   weight_decay: 0.0001
 
 
-# Increase to search for the optimal ema
-epoches: 160 # 148 + 4n
+
+epoches: 64 # Early stop
 train_dataloader:
   total_batch_size: 128
   dataset:
     transforms:
       policy:
-        epoch: 148
+        epoch: 56
   collate_fn:
-    stop_epoch: 148
+    stop_epoch: 56
     ema_restart_decay: 0.9999
     base_size_repeat: ~
+
+ema:
+  warmups: 0
+
+lr_warmup_scheduler:
+  warmup_duration: 0
 
 val_dataloader:
   total_batch_size: 256

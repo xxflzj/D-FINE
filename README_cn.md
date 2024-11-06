@@ -75,14 +75,15 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 ## 🚀 Updates
 - [x] **\[2024.10.18\]** 发布 D-FINE 系列。
 - [x] **\[2024.10.25\]** 添加了自定义数据集微调配置文件 ([#7](https://github.com/Peterande/D-FINE/issues/7))。
-- [x] **\[2024.10.27\]** 优化训练过程自定义输入尺寸的流程，并补充相关修改教程。
 - [x] **\[2024.10.30\]** 更新 D-FINE-L (E25) 预训练模型，性能提升了 2.0%。
+- [x] **\[2024.11.07\]** 发布 **D-FINE-N**, 在 COCO 上达到 42.8% AP<sup>val</sup> @ 472 FPS<sup>T4</sup>!
 
 ## 模型库
 
 ### COCO
 | 模型 | 数据集 | AP<sup>val</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
+**D&#8209;FINE&#8209;N** | COCO | **42.8** | 4M | 2.12ms | 7 | [yml](./configs/dfine/dfine_hgnetv2_n_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_n_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_n_coco_log.txt)
 **D&#8209;FINE&#8209;S** | COCO | **48.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_s_coco_log.txt)
 **D&#8209;FINE&#8209;M** | COCO | **52.3** | 19M | 5.62ms | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_m_coco_log.txt)
 **D&#8209;FINE&#8209;L** | COCO | **54.0** | 31M | 8.07ms | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_l_coco_log.txt)
@@ -96,8 +97,9 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 **D&#8209;FINE&#8209;L** | Objects365+COCO | **57.3** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj2coco_e25.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log_e25.txt)
 **D&#8209;FINE&#8209;X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
-<details>
-<summary> Objects365 预训练模型 (泛化性最好) </summary>
+**我们强烈推荐您使用 Objects365 预训练模型进行微调：**
+
+<details> <summary><strong> 🔥 Objects365 预训练模型（泛化性最好）</strong></summary>
 
 | 模型 | 数据集 | AP<sup>5000</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
@@ -341,7 +343,7 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 <!-- <summary>1. Training </summary> -->
 1. 设置模型
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. 训练
@@ -368,7 +370,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 1. 设置模型
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. 在 Objects365 上训练
@@ -394,7 +396,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 1. 设置模型
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. 在自定义数据集上训练
@@ -459,7 +461,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
     lr: 0.0005  # 翻倍，线性缩放原则
     betas: [0.9, 0.999]
-    weight_decay: 0.0000625  # 减半，但可能需要网格搜索找到最优值
+    weight_decay: 0.0001  # 需要网格搜索找到最优值
 
     ema:  # 添加 EMA 设置
         decay: 0.9998  # 根据 1 - (1 - decay) * 2 调整
@@ -511,7 +513,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 1. 设置
 ```shell
 pip install onnx onnxsim onnxruntime
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. 导出 onnx
@@ -533,7 +535,7 @@ trtexec --onnx="model.onnx" --saveEngine="model.engine" --fp16
 1. 设置
 ```shell
 pip install -r tools/inference/requirements.txt
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 
@@ -554,7 +556,7 @@ python tools/inference/torch_inf.py -c configs/dfine/dfine_hgnetv2_${model}_coco
 1. 设置
 ```shell
 pip install -r tools/benchmark/requirements.txt
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 <!-- <summary>6. Benchmark </summary> -->
@@ -575,7 +577,7 @@ python tools/benchmark/trt_benchmark.py --COCO_dir path/to/COCO2017 --engine_dir
 1. 设置
 ```shell
 pip install fiftyone
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 4. Voxel51 Fiftyone 可视化 ([fiftyone](https://github.com/voxel51/fiftyone))
 ```shell

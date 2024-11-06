@@ -89,14 +89,15 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 ## 🚀 更新情報
 - [x] **\[2024.10.18\]** D-FINEシリーズをリリース。
 - [x] **\[2024.10.25\]** カスタムデータセットの微調整設定を追加 ([#7](https://github.com/Peterande/D-FINE/issues/7))。
-- [x] **\[2024.10.27\]** トレーニング中の入力サイズカスタマイズプロセスを最適化し、関連する指示を追加。
 - [x] **\[2024.10.30\]** D-FINE-L (E25) 事前トレーニングモデルを更新し、パフォーマンスが2.0%向上。
+- [x] **\[2024.11.07\]** **D-FINE-N** をリリース, COCO で 42.8% の AP<sup>val</sup> を達成 @ 472 FPS<sup>T4</sup>!
 
 ## モデルズー
 
 ### COCO
 | モデル | データセット | AP<sup>val</sup> | パラメータ数 | レイテンシ | GFLOPs | config | checkpoint | logs |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
+**D&#8209;FINE&#8209;N** | COCO | **42.8** | 4M | 2.12ms | 7 | [yml](./configs/dfine/dfine_hgnetv2_n_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_n_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_n_coco_log.txt)
 **D&#8209;FINE&#8209;S** | COCO | **48.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_s_coco_log.txt)
 **D&#8209;FINE&#8209;M** | COCO | **52.3** | 19M | 5.62ms | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_m_coco_log.txt)
 **D&#8209;FINE&#8209;L** | COCO | **54.0** | 31M | 8.07ms | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_l_coco_log.txt)
@@ -111,8 +112,9 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 **D&#8209;FINE&#8209;L** | Objects365+COCO | **57.3** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj2coco_e25.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log_e25.txt)
 **D&#8209;FINE&#8209;X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
-<details>
-<summary> Objects365で事前トレーニングされたモデル（最良の汎化性能） </summary>
+**微調整のために Objects365 の事前学習モデルを使用することを強くお勧めします：**
+
+<details> <summary><strong> 🔥 Objects365で事前トレーニングされたモデル（最良の汎化性能）</strong></summary>
 
 | モデル | データセット | AP<sup>5000</sup> | パラメータ数 | レイテンシ | GFLOPs | config | checkpoint | logs |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
@@ -350,7 +352,7 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 <!-- <summary>1. トレーニング </summary> -->
 1. モデルを設定します
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. トレーニング
@@ -377,7 +379,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 1. モデルを設定します
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. Objects365でトレーニング
@@ -403,7 +405,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 1. モデルを設定します
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. カスタムデータセットでトレーニング
@@ -470,7 +472,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
     lr: 0.0005  # 2倍、線形スケーリング法則
     betas: [0.9, 0.999]
-    weight_decay: 0.0000625  # 半分、グリッドサーチが必要かもしれません
+    weight_decay: 0.0001  # グリッドサーチが必要です
 
     ema:  # EMA設定を追加
         decay: 0.9998  # 1 - (1 - decay) * 2 によって調整
@@ -521,7 +523,7 @@ COCO2017で **D-FINE-L** を320x320の入力サイズでトレーニングした
 1. セットアップ
 ```shell
 pip install onnx onnxsim
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. onnxのエクスポート
@@ -543,7 +545,7 @@ trtexec --onnx="model.onnx" --saveEngine="model.engine" --fp16
 1. セットアップ
 ```shell
 pip install -r tools/inference/requirements.txt
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 
@@ -564,7 +566,7 @@ python tools/inference/torch_inf.py -c configs/dfine/dfine_hgnetv2_${model}_coco
 1. セットアップ
 ```shell
 pip install -r tools/benchmark/requirements.txt
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 <!-- <summary>6. ベンチマーク </summary> -->
@@ -585,7 +587,7 @@ python tools/benchmark/trt_benchmark.py --COCO_dir path/to/COCO2017 --engine_dir
 1. セットアップ
 ```shell
 pip install fiftyone
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 4. Voxel51 Fiftyoneの可視化 ([fiftyone](https://github.com/voxel51/fiftyone))
 ```shell

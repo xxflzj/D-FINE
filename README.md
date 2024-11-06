@@ -86,14 +86,15 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 ## 🚀 Updates
 - [x] **\[2024.10.18\]** Release D-FINE series.
 - [x] **\[2024.10.25\]** Add custom dataset finetuning configs ([#7](https://github.com/Peterande/D-FINE/issues/7)).
-- [x] **\[2024.10.27\]** Optimize the process for customizing input size during training and add relevant instructions.
 - [x] **\[2024.10.30\]** Update D-FINE-L (E25) pretrained model, with performance improved by 2.0%.
+- [x] **\[2024.11.07\]** Release **D-FINE-N**, achiving 42.8% AP<sup>val</sup> on COCO @ 472 FPS<sup>T4</sup>!
 
 ## Model Zoo
 
 ### COCO
 | Model | Dataset | AP<sup>val</sup> | #Params | Latency | GFLOPs | config | checkpoint | logs |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
+**D&#8209;FINE&#8209;N** | COCO | **42.8** | 4M | 2.12ms | 7 | [yml](./configs/dfine/dfine_hgnetv2_n_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_n_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_n_coco_log.txt)
 **D&#8209;FINE&#8209;S** | COCO | **48.5** | 10M | 3.49ms | 25 | [yml](./configs/dfine/dfine_hgnetv2_s_coco.yml) | [48.5](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_s_coco_log.txt)
 **D&#8209;FINE&#8209;M** | COCO | **52.3** | 19M | 5.62ms | 57 | [yml](./configs/dfine/dfine_hgnetv2_m_coco.yml) | [52.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_m_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_m_coco_log.txt)
 **D&#8209;FINE&#8209;L** | COCO | **54.0** | 31M | 8.07ms | 91 | [yml](./configs/dfine/dfine_hgnetv2_l_coco.yml) | [54.0](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/coco/dfine_l_coco_log.txt)
@@ -108,8 +109,9 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 **D&#8209;FINE&#8209;L** | Objects365+COCO | **57.3** | 31M | 8.07ms | 91 | [yml](./configs/dfine/objects365/dfine_hgnetv2_l_obj2coco.yml) | [57.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_l_obj2coco_e25.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_l_obj2coco_log_e25.txt)
 **D&#8209;FINE&#8209;X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
+**We highly recommend that you use the Objects365 pre-trained model for fine-tuning:**
 <details>
-<summary> Pretrained Models on Objects365 (Best generalization) </summary>
+<summary><strong> 🔥 Pretrained Models on Objects365 (Best generalization) </strong></summary>
 
 | Model | Dataset | AP<sup>5000</sup> | #Params | Latency | GFLOPs | config | checkpoint | logs |
 | :---: | :---: | :---: |  :---: | :---: | :---: | :---: | :---: | :---: |
@@ -347,7 +349,7 @@ To train on your custom dataset, you need to organize it in the COCO format. Fol
 <!-- <summary>1. Training </summary> -->
 1. Set Model
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. Training
@@ -374,7 +376,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 1. Set Model
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. Training on Objects365
@@ -400,7 +402,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --master_port=7777 --nproc_per_node=4 trai
 
 1. Set Model
 ```shell
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. Training on Custom Dataset
@@ -468,7 +470,7 @@ For example, if you want to double the total batch size when training D-FINE-L o
 
     lr: 0.0005  # doubled, linear scaling law
     betas: [0.9, 0.999]
-    weight_decay: 0.0000625  # halved, probably need a grid search
+    weight_decay: 0.0001  # need a grid search
 
     ema:  # added EMA settings
         decay: 0.9998  # adjusted by 1 - (1 - decay) * 2
@@ -519,7 +521,7 @@ If you'd like to train **D-FINE-L** on COCO2017 with an input size of 320x320, f
 1. Setup
 ```shell
 pip install onnx onnxsim
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 2. Export onnx
@@ -541,7 +543,7 @@ trtexec --onnx="model.onnx" --saveEngine="model.engine" --fp16
 1. Setup
 ```shell
 pip install -r tools/inference/requirements.txt
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 
@@ -562,7 +564,7 @@ python tools/inference/torch_inf.py -c configs/dfine/dfine_hgnetv2_${model}_coco
 1. Setup
 ```shell
 pip install -r tools/benchmark/requirements.txt
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 
 <!-- <summary>6. Benchmark </summary> -->
@@ -583,7 +585,7 @@ python tools/benchmark/trt_benchmark.py --COCO_dir path/to/COCO2017 --engine_dir
 1. Setup
 ```shell
 pip install fiftyone
-export model=l  # s m l x
+export model=l  # n s m l x
 ```
 4. Voxel51 Fiftyone Visualization ([fiftyone](https://github.com/voxel51/fiftyone))
 ```shell

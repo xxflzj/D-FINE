@@ -27,7 +27,23 @@ class DetSolver(BaseSolver):
         n_parameters, model_stats = stats(self.cfg)
         print(model_stats)
         print("-"*42 + "Start training" + "-"*43)
+        top1 = 0
         best_stat = {'epoch': -1, }
+        if self.last_epoch > 0:
+            module = self.ema.module if self.ema else self.model
+            test_stats, coco_evaluator = evaluate(
+                module,
+                self.criterion,
+                self.postprocessor,
+                self.val_dataloader,
+                self.evaluator,
+                self.device
+            )
+            for k in test_stats:
+                best_stat['epoch'] = self.last_epoch
+                best_stat[k] = test_stats[k][0]
+                top1 = test_stats[k][0]
+                print(f'best_stat: {best_stat}')
 
         start_time = time.time()
         start_epoch = self.last_epoch + 1
@@ -39,7 +55,7 @@ class DetSolver(BaseSolver):
                 self.train_dataloader.sampler.set_epoch(epoch)
 
             if epoch == self.train_dataloader.collate_fn.stop_epoch:
-                self.load_resume_state(str(self.output_dir / 'best.pth'))
+                self.load_resume_state(str(self.output_dir / 'best_stg1.pth'))
                 self.ema.decay = self.train_dataloader.collate_fn.ema_restart_decay
                 print(f'Refresh EMA at epoch {epoch} with decay {self.ema.decay}')
 
@@ -96,14 +112,16 @@ class DetSolver(BaseSolver):
 
                 if best_stat['epoch'] == epoch and self.output_dir:
                     if epoch >= self.train_dataloader.collate_fn.stop_epoch:
-                        dist_utils.save_on_master(self.state_dict(), self.output_dir / f"finetune_{self.ema.decay:.4f}_{best_stat[k]:.4f}.pth")
+                        if test_stats[k][0] > top1:
+                            top1 = test_stats[k][0]
+                            dist_utils.save_on_master(self.state_dict(), self.output_dir / 'best_stg2.pth')
                     else:
-                        dist_utils.save_on_master(self.state_dict(), self.output_dir / 'best.pth')
+                        dist_utils.save_on_master(self.state_dict(), self.output_dir / 'best_stg1.pth')
 
                 elif epoch >= self.train_dataloader.collate_fn.stop_epoch:
-                    best_stat['epoch'] = -1
+                    best_stat = {'epoch': -1, }
                     self.ema.decay -= 0.0001
-                    self.load_resume_state(str(self.output_dir / 'best.pth'))
+                    self.load_resume_state(str(self.output_dir / 'best_stg1.pth'))
                     print(f'Refresh EMA at epoch {epoch} with decay {self.ema.decay}')
 
             print(f'best_stat: {best_stat}')

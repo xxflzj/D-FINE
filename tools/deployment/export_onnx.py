@@ -51,7 +51,7 @@ def main(args, ):
 
     model = Model()
 
-    data = torch.rand(1, 3, 640, 640)
+    data = torch.rand(32, 3, 640, 640)
     size = torch.tensor([[640, 640]])
     _ = model(data, size)
 

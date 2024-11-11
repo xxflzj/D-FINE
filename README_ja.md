@@ -555,7 +555,7 @@ export model=l  # n s m l x
 現在、画像とビデオの推論がサポートされています。
 ```shell
 python tools/inference/onnx_inf.py --onnx model.onnx --input image.jpg  # video.mp4
-python tools/inference/trt_inf.py --trt model.trt --input image.jpg
+python tools/inference/trt_inf.py --trt model.engine --input image.jpg
 python tools/inference/torch_inf.py -c configs/dfine/dfine_hgnetv2_${model}_coco.yml -r model.pth --input image.jpg --device cuda:0
 ```
 </details>

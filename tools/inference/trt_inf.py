@@ -16,7 +16,6 @@ import torchvision.transforms as T
 import tensorrt as trt
 import cv2  # Added for video processing
 import os
-import sys
 
 class TimeProfiler(contextlib.ContextDecorator):
     def __init__(self):
@@ -115,7 +114,7 @@ class TRTInference(object):
         if self.backend == 'torch' and torch.cuda.is_available():
             torch.cuda.synchronize()
 
-def draw(images, labels, boxes, scores, thrh=0.6):
+def draw(images, labels, boxes, scores, thrh=0.4):
     for i, im in enumerate(images):
         draw = ImageDraw.Draw(im)
         scr = scores[i]
@@ -219,7 +218,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    m = TRTInference(args.trt_file, device=args.device)
+    m = TRTInference(args.trt, device=args.device)
 
     file_path = args.input
     if os.path.splitext(file_path)[-1].lower() in ['.jpg', '.jpeg', '.png', '.bmp']:

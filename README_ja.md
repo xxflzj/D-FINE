@@ -114,6 +114,8 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 
 **微調整のために Objects365 の事前学習モデルを使用することを強くお勧めします：**
 
+⚠️ 重要なお知らせ：このプリトレインモデルは複雑なシーンの理解に有益ですが、カテゴリが非常に単純な場合、過学習や最適ではない性能につながる可能性がありますので、ご注意ください。
+
 <details> <summary><strong> 🔥 Objects365で事前トレーニングされたモデル（最良の汎化性能）</strong></summary>
 
 | モデル | データセット | AP<sup>5000</sup> | パラメータ数 | レイテンシ | GFLOPs | config | checkpoint | logs |

@@ -19,6 +19,7 @@ from ...core import register
 
 torchvision.disable_beta_transforms_warning()
 faster_coco_eval.init_as_pycocotools()
+Image.MAX_IMAGE_PIXELS = None
 
 __all__ = ['CocoDetection']
 
@@ -50,7 +51,6 @@ class CocoDetection(torchvision.datasets.CocoDetection, DetDataset):
 
         if self.remap_mscoco_category:
             image, target = self.prepare(image, target, category2label=mscoco_category2label)
-            # image, target = self.prepare(image, target, category2label=self.category2label)
         else:
             image, target = self.prepare(image, target)
 

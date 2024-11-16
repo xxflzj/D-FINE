@@ -99,6 +99,8 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 
 **我们强烈推荐您使用 Objects365 预训练模型进行微调：**
 
+⚠️ 重要提醒：通常这种预训练模型对复杂场景的理解非常有用。如果您的类别非常简单，请注意，这可能会导致过拟合和次优性能。
+
 <details> <summary><strong> 🔥 Objects365 预训练模型（泛化性最好）</strong></summary>
 
 | 模型 | 数据集 | AP<sup>5000</sup> | 参数量 | 时延 (ms) | GFLOPs | 配置 | 权重 | 日志 |

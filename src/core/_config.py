@@ -151,7 +151,8 @@ class BaseConfig(object):
                                 num_workers=self.num_workers,
                                 drop_last=False,
                                 collate_fn=self.collate_fn,
-                                shuffle=self.val_shuffle)
+                                shuffle=self.val_shuffle,
+                                persistent_workers=True)
             loader.shuffle = self.val_shuffle
             self._val_dataloader = loader
 

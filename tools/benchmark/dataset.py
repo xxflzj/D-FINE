@@ -13,6 +13,7 @@ import torchvision
 import torchvision.transforms as T
 import torchvision.transforms.functional as F
 
+Image.MAX_IMAGE_PIXELS = None
 
 class ToTensor(T.ToTensor):
     def __init__(self) -> None:

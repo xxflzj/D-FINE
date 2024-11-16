@@ -110,6 +110,8 @@ https://github.com/user-attachments/assets/e5933d8e-3c8a-400e-870b-4e452f5321d9
 **D&#8209;FINE&#8209;X** | Objects365+COCO | **59.3** | 62M | 12.89ms | 202 | [yml](./configs/dfine/objects365/dfine_hgnetv2_x_obj2coco.yml) | [59.3](https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_x_obj2coco.pth) | [url](https://raw.githubusercontent.com/Peterande/storage/refs/heads/master/logs/obj2coco/dfine_x_obj2coco_log.txt)
 
 **We highly recommend that you use the Objects365 pre-trained model for fine-tuning:**
+
+⚠️ **Important**: Please note that this is generally beneficial for complex scene understanding. If your categories are very simple, it might lead to overfitting and suboptimal performance.
 <details>
 <summary><strong> 🔥 Pretrained Models on Objects365 (Best generalization) </strong></summary>
 

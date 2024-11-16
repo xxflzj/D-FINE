@@ -44,7 +44,7 @@ class DetSolver(BaseSolver):
                 best_stat[k] = test_stats[k][0]
                 top1 = test_stats[k][0]
                 print(f'best_stat: {best_stat}')
-                
+
         best_stat_print = best_stat.copy()
         start_time = time.time()
         start_epoch = self.last_epoch + 1
@@ -110,7 +110,7 @@ class DetSolver(BaseSolver):
                 else:
                     best_stat['epoch'] = epoch
                     best_stat[k] = test_stats[k][0]
-                    
+
                 if best_stat[k] > top1:
                     best_stat_print['epoch'] = epoch
                     top1 = best_stat[k]
@@ -119,10 +119,10 @@ class DetSolver(BaseSolver):
                             dist_utils.save_on_master(self.state_dict(), self.output_dir / 'best_stg2.pth')
                         else:
                             dist_utils.save_on_master(self.state_dict(), self.output_dir / 'best_stg1.pth')
-                            
-                best_stat_print[k] = max(best_stat[k], top1) 
+
+                best_stat_print[k] = max(best_stat[k], top1)
                 print(f'best_stat: {best_stat_print}')  # global best
-                
+
                 if best_stat['epoch'] == epoch and self.output_dir:
                     if epoch >= self.train_dataloader.collate_fn.stop_epoch:
                         if test_stats[k][0] > top1:
@@ -137,7 +137,7 @@ class DetSolver(BaseSolver):
                     self.ema.decay -= 0.0001
                     self.load_resume_state(str(self.output_dir / 'best_stg1.pth'))
                     print(f'Refresh EMA at epoch {epoch} with decay {self.ema.decay}')
-                
+
 
             log_stats = {
                 **{f'train_{k}': v for k, v in train_stats.items()},

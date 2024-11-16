@@ -242,6 +242,13 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 </details>
 
 <details>
+<summary>CrowdHuman</summary>
+
+Download COCO format dataset here: [url](https://aistudio.baidu.com/datasetdetail/231455)
+
+</details>
+
+<details>
 <summary>Custom Dataset</summary>
 
 To train on your custom dataset, you need to organize it in the COCO format. Follow the steps below to prepare your dataset:

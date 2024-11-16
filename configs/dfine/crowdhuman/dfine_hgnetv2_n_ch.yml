@@ -1,12 +1,12 @@
 __include__: [
-  '../../dataset/custom_detection.yml',
+  '../../dataset/crowdhuman_detection.yml',
   '../../runtime.yml',
   '../include/dataloader.yml',
   '../include/optimizer.yml',
   '../include/dfine_hgnetv2.yml',
 ]
 
-output_dir: ./output/dfine_hgnetv2_n_custom
+output_dir: ./output/dfine_hgnetv2_n_crowdhuman
 
 
 DFINE:

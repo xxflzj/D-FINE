@@ -1,74 +1,55 @@
 __include__: [
-  '../../dataset/custom_detection.yml',
+  '../../dataset/crowdhuman_detection.yml',
   '../../runtime.yml',
   '../include/dataloader.yml',
   '../include/optimizer.yml',
   '../include/dfine_hgnetv2.yml',
 ]
 
-output_dir: ./output/dfine_hgnetv2_n_custom
+output_dir: ./output/dfine_hgnetv2_m_crowdhuman
 
 
 DFINE:
   backbone: HGNetv2
 
 HGNetv2:
-  name: 'B0'
-  return_idx: [2, 3]
+  name: 'B2'
+  return_idx: [1, 2, 3]
   freeze_at: -1
   freeze_norm: False
   use_lab: True
 
+DFINETransformer:
+  num_layers: 4  # 5 6
+  eval_idx: -1  # -2 -3
 
 HybridEncoder:
-  in_channels: [512, 1024]
-  feat_strides: [16, 32]
-
-  # intra
-  hidden_dim: 128
-  use_encoder_idx: [1]
-  dim_feedforward: 512
-
-  # cross
-  expansion: 0.34
-  depth_mult: 0.5
-
-
-DFINETransformer:
-  feat_channels: [128, 128]
-  feat_strides: [16, 32]
-  hidden_dim: 128
-  dim_feedforward: 512
-  num_levels: 2
-
-  num_layers: 3
-  eval_idx: -1
-
-  num_points: [6, 6]
+  in_channels: [384, 768, 1536]
+  hidden_dim: 256
+  depth_mult: 0.67
 
 optimizer:
   type: AdamW
   params:
     -
       params: '^(?=.*backbone)(?!.*norm|bn).*$'
-      lr: 0.0004
+      lr: 0.000025
     -
       params: '^(?=.*backbone)(?=.*norm|bn).*$'
-      lr: 0.0004
+      lr: 0.000025
       weight_decay: 0.
     -
       params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$'
       weight_decay: 0.
 
-  lr: 0.0008
+  lr: 0.00025
   betas: [0.9, 0.999]
-  weight_decay: 0.0001
+  weight_decay: 0.000125
 
 
 # Increase to search for the optimal ema
 epoches: 220
 train_dataloader:
-  total_batch_size: 128
   dataset:
     transforms:
       policy:
@@ -76,7 +57,4 @@ train_dataloader:
   collate_fn:
     stop_epoch: 200
     ema_restart_decay: 0.9999
-    base_size_repeat: ~
-
-val_dataloader:
-  total_batch_size: 256
+    base_size_repeat: 6

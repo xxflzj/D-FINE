@@ -245,6 +245,13 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 </details>
 
 <details>
+<summary>CrowdHuman</summary>
+
+こちらからCOCOフォーマットのデータセットをダウンロードしてください：[リンク](https://aistudio.baidu.com/datasetdetail/231455)
+
+</details>
+
+<details>
 <summary>カスタムデータセット</summary>
 
 カスタムデータセットでトレーニングするには、COCO形式で整理する必要があります。以下の手順に従ってデータセットを準備してください：

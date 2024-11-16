@@ -237,6 +237,13 @@ python tools/resize_obj365.py --base_dir ${BASE_DIR}
 </details>
 
 <details>
+<summary>CrowdHuman</summary>
+
+在此下载 COCO 格式的数据集：[链接](https://aistudio.baidu.com/datasetdetail/231455)
+
+</details>
+
+<details>
 <summary>自定义数据集</summary>
 
 要在你的自定义数据集上训练，你需要将其组织为 COCO 格式。请按照以下步骤准备你的数据集：

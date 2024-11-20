@@ -26,8 +26,8 @@ int main(){
         ov::Tensor bboxs_tensor = ireq.get_output_tensor(1);
         ov::Tensor scores_tensor = ireq.get_output_tensor(2);
         float *bo = bboxs_tensor.data<float>();
-        
-        //example 
+
+        //example
         float cx = bo[4] ;
         float cy = bo[5] ;
         float bx = bo[6] ;

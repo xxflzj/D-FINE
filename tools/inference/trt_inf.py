@@ -92,6 +92,8 @@ class TRTInference(object):
 
     def run_torch(self, blob):
         for n in self.input_names:
+            if blob[n].dtype is not self.bindings[n].data.dtype:
+                blob[n] = blob[n].to(dtype=self.bindings[n].data.dtype)
             if self.bindings[n].shape != blob[n].shape:
                 self.context.set_input_shape(n, blob[n].shape)
                 self.bindings[n] = self.bindings[n]._replace(shape=blob[n].shape)

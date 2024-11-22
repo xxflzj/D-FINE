@@ -78,7 +78,7 @@ void main(){
     cudaMemcpy(imageSize, h_inputData2, 2 * sizeof(int64_t), cudaMemcpyHostToDevice);
 
     void* buffers[5];
-    buffers[0] = image; 
+    buffers[0] = image;
     buffers[1] = imageSize;
     buffers[2] = label;
     buffers[3] = boxes;

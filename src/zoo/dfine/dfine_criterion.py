@@ -154,7 +154,9 @@ class DFINECriterion(nn.Module):
             if 'teacher_corners' in outputs:
                 pred_corners = outputs['pred_corners'].reshape(-1, (self.reg_max+1))
                 target_corners = outputs['teacher_corners'].reshape(-1, (self.reg_max+1))
-                if not torch.equal(pred_corners, target_corners):
+                if torch.equal(pred_corners, target_corners):
+                    losses['loss_ddf'] = pred_corners.sum() * 0
+                else:
                     weight_targets_local = outputs['teacher_logits'].sigmoid().max(dim=-1)[0]
 
                     mask = torch.zeros_like(weight_targets_local, dtype=torch.bool)

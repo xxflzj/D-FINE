@@ -334,6 +334,7 @@ class DFINECriterion(nn.Module):
             assert 'dn_meta' in outputs, ''
             indices_dn = self.get_cdn_matched_indices(outputs['dn_meta'], targets)
             dn_num_boxes = num_boxes * outputs['dn_meta']['dn_num_group']
+            dn_num_boxes = dn_num_boxes if dn_num_boxes > 0 else 1
 
             for i, aux_outputs in enumerate(outputs['dn_outputs']):
                 aux_outputs['is_dn'] = True

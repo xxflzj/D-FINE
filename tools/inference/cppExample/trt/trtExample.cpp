@@ -89,13 +89,13 @@ void main(){
     context->setInputShape(engine->getIOTensorName(1), nvinfer1::Dims2(1, 2));
     context->executeV2(buffers);
 
-    float* hostScore = new float[1 * 4];
-    int64_t* hostLabel = new int64_t[1 * 4];
-    float* hostBoxes = new float[1 * 4 * 4];
+    float* hostScore = new float[1 * 300];
+    int64_t* hostLabel = new int64_t[1 * 300];
+    float* hostBoxes = new float[1 * 4 * 300];
 
-    cudaMemcpy(hostScore, score, 1 * 4 * sizeof(float), cudaMemcpyDeviceToHost);
-    cudaMemcpy(hostLabel, label, 1 * 4 * sizeof(int64_t), cudaMemcpyDeviceToHost);
-    cudaMemcpy(hostBoxes, boxes, 1 * 4 * 4 *sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpy(hostScore, score, 1 * 300 * sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpy(hostLabel, label, 1 * 300 * sizeof(int64_t), cudaMemcpyDeviceToHost);
+    cudaMemcpy(hostBoxes, boxes, 1 * 4 * 300 *sizeof(float), cudaMemcpyDeviceToHost);
 
     for(int i=0;i<2;i++){
         std::cout<<"score:"<<hostScore[i]<<" ";

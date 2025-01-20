@@ -1,39 +1,25 @@
 # KITTI Dataset Configuration
 
-dataset_type: kitti_detection
+dataset:
+  type: &dataset_type 'KITTI'
+  root_dir: 'data/KITTIDataset'
+  train_split: 'train'
+  test_split: 'val'
+  batch_size: 16
+  use_3d_center: True
+  class_merging: False
+  use_dontcare: False
+  bbox2d_type: 'anno'  # 'proj' or 'anno'
+  meanshape: False  # use predefined anchor or not
+  writelist: ['Car']
+  clip_2d: False
 
-train:
-    data_root: '/root/share/data/KITTIDataset'
-    ann_file: 'training'    # path to train annotation file
-    image_dir: 'image_2'   # 'image_2_path'
-    batch_size: 16
-    use_3d_center: True
-    class_merging: False
-    use_dontcare: False
-    bbox2d_type: 'anno'  # 'proj' or 'anno'
-    meanshape: False  # use predefined anchor or not
-    writelist: ['Car'] # 可修改为需要的类别
-    clip_2d: False
+  aug_pd: True
+  aug_crop: True
 
-    aug_pd: True
-    aug_crop: True
+  random_flip: 0.5
+  random_crop: 0.5
+  scale: 0.05
+  shift: 0.05
 
-    random_flip: 0.5
-    random_crop: 0.5
-    scale: 0.05
-    shift: 0.05
-    depth_scale: 'normal'
-
-#val:
-#    data_root: '/root/share/data/KITTIDataset'  # dataset path
-#    ann_file: 'val'  # path to val annotation file
-#    image_dir: 'image_2'   # 'image_2_path'
-#    batch_size: 16
-
-test:
-    data_root: '/root/share/data/KITTIDataset' # dataset path
-    ann_file: 'testing'    # path to test annotation file
-    image_dir: 'image_2'  # 'image_2_path'
-    batch_size: 16
-
-num_classes: 8
+  depth_scale: 'normal'

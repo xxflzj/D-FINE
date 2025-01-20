@@ -17,17 +17,20 @@ from ..misc import dist_utils, stats
 from ._solver import BaseSolver
 from .det_engine import train_one_epoch, evaluate
 
+from ..helpers.dataloader_helper import build_dataloader
 
-class DetSolver(BaseSolver):
+
+class MonoDetSolver(BaseSolver):
 
     def fit(self, ):
         self.train()
 
+        train_dataloader, val_dataloader = build_dataloader(self.cfg.dataset)
         self.train_dataloader = dist_utils.warp_loader(
-            self.cfg.train_dataloader, shuffle=self.cfg.train_dataloader.shuffle
+            train_dataloader, shuffle=True
         )
         self.val_dataloader = dist_utils.warp_loader(
-            self.cfg.val_dataloader, shuffle=self.cfg.val_dataloader.shuffle
+            val_dataloader, shuffle=False
         )
 
         args = self.cfg

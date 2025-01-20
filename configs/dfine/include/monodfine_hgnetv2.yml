@@ -1,17 +1,17 @@
 task: detection
 
-model: DFINE
-criterion: DFINECriterion
-postprocessor: DFINEPostProcessor
+model: MonoDFINE
+criterion: MonoDFINECriterion
+postprocessor: MonoDFINEPostProcessor
 
 use_focal_loss: True
 eval_spatial_size: [640, 640]  # h w
 eval_idx: -1
 
-DFINE:
+MonoDFINE:
   backbone: HGNetv2
   encoder: HybridEncoder
-  decoder: DFINETransformer
+  decoder: MonoDFINETransformer
 
 HGNetv2:
   pretrained: True
@@ -36,7 +36,7 @@ HybridEncoder:
   act: 'silu'
 
 
-DFINETransformer:
+MonoDFINETransformer:
   feat_channels: [256, 256, 256]
   feat_strides: [8, 16, 32]
   hidden_dim: 256
@@ -64,11 +64,11 @@ DFINETransformer:
   query_select_method: default  # default, agnostic
 
 
-DFINEPostProcessor:
+MonoDFINEPostProcessor:
   num_top_queries: 300
 
 
-DFINECriterion:
+MonoDFINECriterion:
   weight_dict: {loss_vfl: 1, loss_bbox: 5, loss_giou: 2, loss_fgl: 0.15, loss_ddf: 1.5}
   losses: ['vfl', 'boxes', 'local']
   alpha: 0.75
